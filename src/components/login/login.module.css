@@ -1,0 +1,137 @@
+.bodyLogin {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #502159;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftLogin {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.leftLogin h1 {
+  color: #77ffc0;
+}
+
+.rigthLogin {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardLogin {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px 35px;
+  background-color: #113059;
+  border-radius: 20px;
+  box-shadow: 0px 10px 40px #00000056;
+}
+
+.cardLogin h1 {
+  color: #91b7d9;
+  font-weight: 800;
+  margin: 0;
+}
+
+.chart {
+  width: 80%;
+}
+
+/* .login {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+  font-family: "Comfortaa", cursive;
+} */
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #113059;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.formGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 10px 0px;
+}
+
+.formGroup label {
+  color: #f0ffffde;
+  margin-top: 10px;
+}
+
+.formField {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #514869;
+  color: #f0ffffde;
+  font-size: 12pt;
+  box-shadow: 0px 10px 40px #00000056;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.formField ::placeholder {
+  color: #f0ffff94;
+}
+
+.button {
+  width: 100%;
+  padding: 16px 0px;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 3px;
+  cursor: pointer;
+  margin-top: 15px;
+  background: #b3daf2;
+  color: black;
+}
+
+@media (max-width: 950px) {
+  .cardLogin {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .bodyLogin {
+    flex-direction: column;
+  }
+  .leftLogin {
+    width: 100%;
+    height: auto;
+  }
+  .rigthLogin {
+    width: 100%;
+    height: auto;
+  }
+
+  .cardLogin {
+    width: 70%;
+  }
+}
