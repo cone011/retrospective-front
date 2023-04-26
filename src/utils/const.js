@@ -1,1 +1,10 @@
 export const CALL_API = `${process.env.REACT_APP_LINKAPI}`;
+
+export const NAME_INPUT = Object.freeze({
+  EMAIL: "EMAIL",
+  PASSWORD: "PASSWORD",
+  CONFIRM_PASSWORD: "CONFIRM_PASSWORD",
+  FIRST_NAME: "FIRST_NAME",
+  LAST_NAME: "LAST_NAME",
+  PHONE: "PHONE",
+});

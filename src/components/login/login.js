@@ -1,6 +1,8 @@
 import { useState } from "react";
 import classes from "./Login.module.css";
 import Img from "../Assets/loginBackground.svg";
+import CustomInput from "../UI/CustomInput/CustomInput";
+import { NAME_INPUT } from "../../utils/const";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,13 +23,11 @@ const Login = () => {
     }
   };
 
-  const emailHandler = (event) => {
-    setEmail(event.target.value);
+  const onValueReturnData = (data, nameInput) => {
+    if (nameInput === NAME_INPUT.EMAIL) setEmail(data);
+    if (nameInput === NAME_INPUT.PASSWORD) setPassword(data);
   };
 
-  const passwordHanlder = (event) => {
-    setPassword(event.target.value);
-  };
   return (
     <div className={classes.bodyLogin}>
       <div className={classes.leftLogin}>
@@ -37,26 +37,20 @@ const Login = () => {
         <div className={classes.cardLogin}>
           <h1>Login</h1>
           <form className={classes.form} onSubmit={onLoginHandler}>
-            <div className={classes.formGroup}>
-              <label form="user">User</label>
-              <input
-                type="email"
-                name="user"
-                value={email}
-                onChange={emailHandler}
-                className={classes.formField}
-              />
-            </div>
-            <div className={classes.formGroup}>
-              <label form="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={passwordHanlder}
-                className={classes.formField}
-              />
-            </div>
+            <CustomInput
+              value={email}
+              typeInput="email"
+              nameInput={NAME_INPUT.EMAIL}
+              labelInput={NAME_INPUT.EMAIL}
+              onReturnValue={onValueReturnData}
+            />
+            <CustomInput
+              value={password}
+              typeInput="passsword"
+              nameInput={NAME_INPUT.PASSWORD}
+              labelInput={NAME_INPUT.PASSWORD}
+              onReturnValue={onValueReturnData}
+            />
             <button className={classes.button} type="submit">
               Enter
             </button>
