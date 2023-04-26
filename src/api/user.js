@@ -81,6 +81,32 @@ export async function signUp(userData) {
   return data.userId;
 }
 
+export async function updateUsuario(userData) {
+  const { email, firstName, lastName, phone } = userData;
+
+  const result = await fetch(`${CALL_API}/users`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+    }),
+  });
+
+  const data = await result.json();
+
+  if (!result.ok) {
+    throw new Error("Cant not update the user");
+  }
+
+  return data.isSaved;
+}
+
 export async function resetPassword(userData) {
   const { newPassword, confirmNewPassword } = userData;
   const response = await fetch(`${CALL_API}/reset}`, {

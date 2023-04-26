@@ -1,5 +1,6 @@
 import { useState } from "react";
 import classes from "./Login.module.css";
+import Img from "../Assets/loginBackground.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,7 +30,9 @@ const Login = () => {
   };
   return (
     <div className={classes.bodyLogin}>
-      <div className={classes.leftLogin}></div>
+      <div className={classes.leftLogin}>
+        <img src={Img} alt="background" className={classes.chart} />
+      </div>
       <div className={classes.rigthLogin}>
         <div className={classes.cardLogin}>
           <h1>Login</h1>
