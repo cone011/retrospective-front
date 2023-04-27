@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import CustomModal from "../CustomModal/CustomModal";
 import classes from "./ShowModal.module.css";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-import { TYPE_MODAL } from "../../../utils/const";
+import { TYPE_MODAL } from "../../../Utils/const";
 
 const ShowModal = (props) => {
   const { onClose, onConfirm, typeModal, message } = props;

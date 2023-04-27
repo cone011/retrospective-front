@@ -6,13 +6,15 @@ import {
   NAME_INPUT,
   TYPE_MODAL,
   TYPE_REDUCER_ACTION,
+  TYPE_INPUT,
   defaultTodoReducer,
-} from "../../utils/const";
-import { todoRecducer } from "../Reducer/Reducer";
+} from "../../Utils/const";
+import { todoReducer } from "../Reducer/Reducer";
 import ShowModal from "../UI/ShowModal/ShowModal";
+import { login } from "../../Api/user";
 
 const Login = () => {
-  const [todo, dispatchTodo] = useReducer(todoRecducer, defaultTodoReducer);
+  const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -39,7 +41,8 @@ const Login = () => {
           typeModal: TYPE_MODAL.ERROR,
         });
       }
-      console.log("llego aca al final");
+      const result = await login({ email: email, password: password });
+      console.log(result);
       dispatchTodo({
         type: TYPE_REDUCER_ACTION.SET_CONFIRM,
         message: "LOGIN OK",
@@ -71,14 +74,14 @@ const Login = () => {
             <form className={classes.form} onSubmit={onLoginHandler}>
               <CustomInput
                 value={email}
-                typeInput="email"
+                typeInput={TYPE_INPUT.EMAIL}
                 nameInput={NAME_INPUT.EMAIL}
                 labelInput={NAME_INPUT.EMAIL}
                 onReturnValue={onValueReturnData}
               />
               <CustomInput
                 value={password}
-                typeInput="password"
+                typeInput={TYPE_INPUT.PASSWORD}
                 nameInput={NAME_INPUT.PASSWORD}
                 labelInput={NAME_INPUT.PASSWORD}
                 onReturnValue={onValueReturnData}

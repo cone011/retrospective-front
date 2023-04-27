@@ -1,6 +1,6 @@
-import { TYPE_REDUCER_ACTION } from "../../utils/const";
+import { TYPE_REDUCER_ACTION } from "../../Utils/const";
 
-export const todoRecducer = (curTodo, action) => {
+export const todoReducer = (curTodo, action) => {
   switch (action.type) {
     case TYPE_REDUCER_ACTION.SET_LOADING:
       return {
