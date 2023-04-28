@@ -37,7 +37,7 @@ export const AuthContextProvider = (props) => {
   const { children } = props;
   const tokenData = getAuthToken();
 
-  const isAuthUser = token ? true : false;
+  const isAuthUser = tokenData ? true : false;
 
   useEffect(() => {
     if (!tokenData) logout();

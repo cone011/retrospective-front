@@ -9,6 +9,14 @@ export const NAME_INPUT = Object.freeze({
   PHONE: "PHONE",
 });
 
+export const TYPE_INPUT = Object.freeze({
+  EMAIL: "email",
+  PASSWORD: "password",
+  TEXT: "text",
+  COLOR: "color",
+  NUMBER: "number",
+});
+
 export const TYPE_MODAL = Object.freeze({
   LOADING: "LOADING",
   ERROR: "ERROR",

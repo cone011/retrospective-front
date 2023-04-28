@@ -1,5 +1,5 @@
-import { getAuthToken } from "../context/auth-context";
-import { CALL_API } from "../utils/const";
+import { getAuthToken } from "../Context/auth-context";
+import { CALL_API } from "../Utils/const";
 
 export async function getAllUsers(dipslayObject) {
   const { page, perPage } = dipslayObject;
@@ -53,12 +53,13 @@ export async function login(userData) {
     throw new Error("Was imposible to log in");
   }
 
-  return { ...data.result };
+  return data.token;
 }
 
 export async function signUp(userData) {
   const { email, password, confirmPassword, firstName, lastName, phone } =
     userData;
+  const token = getAuthToken();
   const response = await fetch(`${CALL_API}/signup`, {
     method: "POST",
     headers: {
@@ -75,7 +76,7 @@ export async function signUp(userData) {
     }),
   });
   const data = await response.json();
-  if (!result.ok) {
+  if (!response.ok) {
     throw new Error("Was imposible to create this new user");
   }
   return data.userId;
@@ -83,7 +84,7 @@ export async function signUp(userData) {
 
 export async function updateUsuario(userData) {
   const { email, firstName, lastName, phone } = userData;
-
+  const token = getAuthToken();
   const result = await fetch(`${CALL_API}/users`, {
     method: "POST",
     headers: {
@@ -109,6 +110,7 @@ export async function updateUsuario(userData) {
 
 export async function resetPassword(userData) {
   const { newPassword, confirmNewPassword } = userData;
+  const token = getAuthToken();
   const response = await fetch(`${CALL_API}/reset}`, {
     method: "POST",
     headers: {
@@ -121,19 +123,20 @@ export async function resetPassword(userData) {
     }),
   });
   const data = await response.json();
-  if (!result.ok) {
+  if (!response.ok) {
     throw new Error("Was imposible to reset the password of this new user");
   }
   return data.isSaved;
 }
 
 export async function deleteUser(userId) {
+  const token = getAuthToken();
   const response = await fetch(`${CALL_API}/users/${userId}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await response.json();
-  if (!result.ok) {
+  if (!response.ok) {
     throw new Error("Was imposible to delete this user");
   }
   return data.isDeleted;
