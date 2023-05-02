@@ -8,9 +8,9 @@ import {
   TYPE_MODAL,
   TYPE_REDUCER_ACTION,
   defaultTodoReducer,
-} from "../../Utils/const";
+} from "../../utils/const";
 import { todoReducer } from "../Reducer/Reducer";
-import { signUp } from "../../Api/user";
+import { signUp } from "../../api/user";
 
 const SignUp = () => {
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
@@ -48,6 +48,7 @@ const SignUp = () => {
           message: "Please enter your email",
           typeModal: TYPE_MODAL.ERROR,
         });
+        return;
       }
 
       if (!password || password.length === 0) {
@@ -56,6 +57,7 @@ const SignUp = () => {
           message: "Please enter your password",
           typeModal: TYPE_MODAL.ERROR,
         });
+        return;
       }
 
       if (!confirmPassword || confirmPassword.length === 0) {
@@ -64,6 +66,7 @@ const SignUp = () => {
           message: "Please enter your confirm password",
           typeModal: TYPE_MODAL.ERROR,
         });
+        return;
       }
 
       if (!firstName || firstName.length === 0) {
@@ -72,6 +75,7 @@ const SignUp = () => {
           message: "Please enter your first name",
           typeModal: TYPE_MODAL.ERROR,
         });
+        return;
       }
 
       if (!lastName || lastName.length === 0) {
@@ -80,6 +84,7 @@ const SignUp = () => {
           message: "Please enter your last name",
           typeModal: TYPE_MODAL.ERROR,
         });
+        return;
       }
 
       const result = await signUp({

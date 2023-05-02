@@ -1,5 +1,5 @@
-import { getAuthToken } from "../Context/auth-context";
-import { CALL_API } from "../Utils/const";
+import { getAuthToken } from "../context/auth-context";
+import { CALL_API } from "../utils/const";
 
 export async function getAllUsers(dipslayObject) {
   const { page, perPage } = dipslayObject;

@@ -7,6 +7,7 @@ export const NAME_INPUT = Object.freeze({
   FIRST_NAME: "FIRST_NAME",
   LAST_NAME: "LAST_NAME",
   PHONE: "PHONE",
+  NAME: "NAME",
 });
 
 export const TYPE_INPUT = Object.freeze({

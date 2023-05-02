@@ -1,5 +1,6 @@
 import { Fragment, useReducer, useState } from "react";
 import classes from "./Login.module.css";
+import { useNavigate } from "react-router-dom";
 import Img from "../Assets/loginBackground.svg";
 import CustomInput from "../UI/CustomInput/CustomInput";
 import {
@@ -8,15 +9,16 @@ import {
   TYPE_REDUCER_ACTION,
   TYPE_INPUT,
   defaultTodoReducer,
-} from "../../Utils/const";
+} from "../../utils/const";
 import { todoReducer } from "../Reducer/Reducer";
 import ShowModal from "../UI/ShowModal/ShowModal";
-import { login } from "../../Api/user";
+import { login } from "../../api/user";
 
 const Login = () => {
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const onLoginHandler = async (event) => {
     event.preventDefault();
@@ -42,12 +44,14 @@ const Login = () => {
         });
       }
       const result = await login({ email: email, password: password });
-      console.log(result);
-      dispatchTodo({
-        type: TYPE_REDUCER_ACTION.SET_CONFIRM,
-        message: "LOGIN OK",
-        typeModal: TYPE_MODAL.CONFIRM,
-      });
+      if (result) {
+        dispatchTodo({
+          type: TYPE_REDUCER_ACTION.SET_CONFIRM,
+          message: "LOGIN OK",
+          typeModal: TYPE_MODAL.CONFIRM,
+        });
+        navigate("/type");
+      }
     } catch (err) {
       console.log(err);
     }

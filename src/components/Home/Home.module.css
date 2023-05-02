@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+
+.flatColor {
+  color: #000000;
+}
+
+.brBorder {
+  border: none !important;
+}
+
+.borderRgba {
+  background-color: rgba(74, 99, 17, 0.15) !important;
+}
+
+body {
+  background-color: #113059;
+  display: table;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  width: 100%;
+}
+
+.content {
+  float: left;
+  padding: 1.875em;
+  width: 100%;
+}
+
+.card {
+  margin-bottom: 1.875em;
+  border-radius: 5px;
+  padding: 0;
+  border: 0px solid transparent;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+}
+.card .box-title {
+  font-weight: 700;
+  font-size: 1.5em;
+  padding: 5px 0;
+}
+
+.statWidgetFive {
+  min-height: 80px;
+}
+
+.statWidgetFive .stat-icon {
+  font-size: 50px;
+  line-height: 50px;
+  position: absolute;
+  left: 30px;
+  top: 20ex;
+}
+
+.statWidgetFive .stat-content {
+  margin-left: 100px;
+}
+
+.statWidgetFive .stat-text {
+  color: #455a64;
+  font-size: 20px;
+}
+
+.statWidgetFive .stat-heading {
+  color: #000000;
+  font-size: 14px;
+}

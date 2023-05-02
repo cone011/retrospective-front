@@ -1,4 +1,4 @@
-import { TYPE_REDUCER_ACTION } from "../../Utils/const";
+import { TYPE_REDUCER_ACTION } from "../../utils/const";
 
 export const todoReducer = (curTodo, action) => {
   switch (action.type) {
