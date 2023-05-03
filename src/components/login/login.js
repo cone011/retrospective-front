@@ -1,6 +1,7 @@
-import { Fragment, useReducer, useState } from "react";
+import { Fragment, useReducer, useState, useContext } from "react";
 import classes from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
+import AuthContext, { getTokenDuration } from "../../context/auth-context";
 import Img from "../Assets/loginBackground.svg";
 import CustomInput from "../UI/CustomInput/CustomInput";
 import {
@@ -15,6 +16,7 @@ import ShowModal from "../UI/ShowModal/ShowModal";
 import { login } from "../../api/user";
 
 const Login = () => {
+  const authCtx = useContext(AuthContext);
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,12 +47,14 @@ const Login = () => {
       }
       const result = await login({ email: email, password: password });
       if (result) {
-        dispatchTodo({
-          type: TYPE_REDUCER_ACTION.SET_CONFIRM,
-          message: "LOGIN OK",
-          typeModal: TYPE_MODAL.CONFIRM,
-        });
-        navigate("/type");
+        const expiration = new Date();
+        expiration.setHours(expiration.getHours() + 1);
+        authCtx.login(result, expiration);
+        const tokenDuration = getTokenDuration();
+        if (tokenDuration > 0) {
+          console.log("entro");
+          navigate("/type");
+        }
       }
     } catch (err) {
       console.log(err);

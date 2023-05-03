@@ -23,12 +23,13 @@ export function getAuthToken() {
   return token;
 }
 
-export async function logout() {
+export function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("expiration");
 }
 
-export async function login(token, expirationDate) {
+export function login(token, expirationDate) {
+  console.log(token);
   localStorage.setItem("token", token);
   localStorage.setItem("expiration", expirationDate);
 }

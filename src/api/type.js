@@ -33,6 +33,7 @@ export async function getTypeById(typeId) {
 
 export async function saveType(typeObject) {
   const token = getAuthToken();
+  console.log(token);
   const { isNew, name, typeId } = typeObject;
   let sendLinkApi = `${CALL_API}/type`;
   let method = "POST";
