@@ -15,17 +15,17 @@ const ListPost = () => {
 
   const arrayLanes = [
     {
-      title: "ToDo",
+      title: "Went Well",
       items: wentWellList,
       color: "red",
     },
     {
-      title: "InProgress",
+      title: "To Improve",
       items: toImproveList,
       color: "yellow",
     },
     {
-      title: "Done",
+      title: "Kudos",
       items: kudos,
       color: "green",
     },

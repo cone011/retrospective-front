@@ -1,9 +1,13 @@
-import logo from "./logo.svg";
+import { ChakraProvider } from "@chakra-ui/react";
 import "./App.css";
 import RoutesPages from "./Routes/Routes";
 
 function App() {
-  return <RoutesPages />;
+  return (
+    <ChakraProvider>
+      <RoutesPages />
+    </ChakraProvider>
+  );
   // return (
   //   <div className="App">
   //     <header className="App-header">
