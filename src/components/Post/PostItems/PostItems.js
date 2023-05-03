@@ -1,16 +1,34 @@
+import { useDroppable } from "@dnd-kit/core";
 import classes from "./PostItems.module.css";
+import { Flex, Text } from "@chakra-ui/react";
 
 const PostItems = (props) => {
-  const { _id, title, name, creator, lastUser } = props;
+  const { title, items, color } = props;
+
+  const { setNodeRef } = useDroppable({
+    id: title,
+  });
 
   return (
-    <article className={classes.post}>
-      <header>
-        <h3 className={classes.postMeta}>Post by {creator}</h3>
-      </header>
-      <div className={classes.postTitle}>{title}</div>
-      <div className={classes.postActions}></div>
-    </article>
+    <Flex
+      flex="3"
+      padding="5"
+      flexDirection="column"
+      minH="10rem"
+      height="auto"
+    >
+      <Text
+        fontSize="xl"
+        borderRadius="md"
+        p={1}
+        fontWeight="bold"
+        bg={`${color}.500`}
+        mb="2"
+        color={"white"}
+      >
+        {title}
+      </Text>
+    </Flex>
   );
 };
 
