@@ -1,7 +1,7 @@
 import { Fragment } from "react";
-import CustomModal from "../CustomModal/CustomModal";
+import CustomModal from "../customModal/customModal";
 import classes from "./ShowModal.module.css";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 import { TYPE_MODAL } from "../../../utils/const";
 
 const ShowModal = (props) => {

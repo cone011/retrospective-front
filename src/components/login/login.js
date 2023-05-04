@@ -1,5 +1,5 @@
 import { Fragment, useReducer, useState, useContext } from "react";
-import classes from "./Login.module.css";
+import classes from "./login.module.css";
 import { useNavigate } from "react-router-dom";
 import AuthContext, { getTokenDuration } from "../../context/auth-context";
 import Img from "../Assets/loginBackground.svg";
