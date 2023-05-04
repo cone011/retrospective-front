@@ -1,17 +1,77 @@
 import { DndContext, rectIntersection } from "@dnd-kit/core";
-import { useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import classes from "./ListPost.module.css";
+import openSocket from "socket.io-client";
 import { todoReducer } from "../../Reducer/Reducer";
-import { defaultTodoReducer } from "../../../utils/const";
+import {
+  CALL_API,
+  TYPE_MODAL,
+  TYPE_REDUCER_ACTION,
+  ACTION_TYPE,
+  defaultTodoReducer,
+} from "../../../utils/const";
 import { Flex } from "@chakra-ui/react";
 import PostLine from "../PostLine/PostLine";
+import { getAllPost } from "../../../api/post";
 
 const ListPost = () => {
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
-
+  const [listPost, setListPost] = useState([]);
   const [wentWellList, setWentWellList] = useState(["Data"]);
   const [toImproveList, setToImproveList] = useState(["Data2"]);
   const [kudos, setKudosList] = useState(["Data3"]);
+
+  const addPost = (post) => {
+    setListPost((prevPost) => {
+      console.log("prevPost", prevPost);
+      console.log("post", post);
+    });
+  };
+
+  const updatePost = (post) => {
+    setListPost((prevPost) => {
+      console.log("prevPost", prevPost);
+      console.log("post", post);
+    });
+  };
+
+  const assigmentSocket = () => {
+    const socket = openSocket(`http://localhost:5050`);
+    socket.on("post", (data) => {
+      if (data.action === ACTION_TYPE.CREATE) {
+        addPost(data.post);
+      } else if (data.action === ACTION_TYPE.UPDATE) {
+        updatePost(data.post);
+      } else if (data.action === ACTION_TYPE.DELETE) {
+        assigmentValues();
+      }
+    });
+  };
+
+  const assigmentValues = useCallback(async () => {
+    try {
+      const result = await getAllPost({ currentPage: 1, perPage: 10 });
+      if (!result.Posts) {
+        dispatchTodo({
+          type: TYPE_REDUCER_ACTION.SET_ERROR,
+          message: "There is no post to show",
+          typeModal: TYPE_MODAL.ERROR,
+        });
+      }
+      setListPost(result);
+    } catch (err) {
+      dispatchTodo({
+        type: TYPE_REDUCER_ACTION.SET_ERROR,
+        message: err,
+        typeModal: TYPE_MODAL.ERROR,
+      });
+    }
+  });
+
+  useEffect(() => {
+    assigmentValues();
+    assigmentSocket();
+  }, [assigmentValues, assigmentSocket]);
 
   const arrayLanes = [
     {

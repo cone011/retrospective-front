@@ -1,5 +1,11 @@
 export const CALL_API = `${process.env.REACT_APP_LINKAPI}`;
 
+export const ACTION_TYPE = Object.freeze({
+  CREATE: "create",
+  UPDATE: "update",
+  DELETE: "delete",
+});
+
 export const NAME_INPUT = Object.freeze({
   EMAIL: "EMAIL",
   PASSWORD: "PASSWORD",
