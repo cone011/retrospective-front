@@ -2,7 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import Login from "../components/login/login";
 import SignUp from "../components/SignUp/SignUp";
 import ProtectedRoute from "./ProtectedRoute";
-import Home from "../components/Home/Home";
+import HomePage from "../Pages/HomePage";
+import TypesPage from "../Pages/TypesPage";
 
 const RoutesPages = () => {
   return (
@@ -10,7 +11,8 @@ const RoutesPages = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
       <Route exact element={<ProtectedRoute />}>
-        <Route path="/type" element={<Home />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/type" element={<TypesPage />} />
       </Route>
     </Routes>
   );

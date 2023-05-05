@@ -1,0 +1,10 @@
+.events {
+  margin: 2rem auto;
+  max-width: 40rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

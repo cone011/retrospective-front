@@ -1,10 +1,8 @@
 import { DndContext, rectIntersection } from "@dnd-kit/core";
 import { useCallback, useEffect, useReducer, useState } from "react";
 import classes from "./ListPost.module.css";
-import openSocket from "socket.io-client";
 import { todoReducer } from "../../Reducer/Reducer";
 import {
-  CALL_API,
   TYPE_MODAL,
   TYPE_REDUCER_ACTION,
   ACTION_TYPE,
@@ -13,6 +11,7 @@ import {
 import { Flex } from "@chakra-ui/react";
 import PostLine from "../PostLine/PostLine";
 import { getAllPost } from "../../../api/post";
+import { socket } from "../../../socket";
 
 const ListPost = () => {
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
@@ -35,18 +34,18 @@ const ListPost = () => {
     });
   };
 
-  const assigmentSocket = () => {
-    const socket = openSocket(`http://localhost:5050`);
-    socket.on("post", (data) => {
+  const assigmentSocket = useCallback(() => {
+    socket.on("posts", (data) => {
       if (data.action === ACTION_TYPE.CREATE) {
         addPost(data.post);
       } else if (data.action === ACTION_TYPE.UPDATE) {
         updatePost(data.post);
       } else if (data.action === ACTION_TYPE.DELETE) {
+        console.log("ENTRO PARA ELIMINAR");
         assigmentValues();
       }
     });
-  };
+  }, []);
 
   const assigmentValues = useCallback(async () => {
     try {
@@ -58,7 +57,8 @@ const ListPost = () => {
           typeModal: TYPE_MODAL.ERROR,
         });
       }
-      setListPost(result);
+      setListPost(result.Posts);
+      console.log(result.Posts.length);
     } catch (err) {
       dispatchTodo({
         type: TYPE_REDUCER_ACTION.SET_ERROR,
@@ -66,7 +66,7 @@ const ListPost = () => {
         typeModal: TYPE_MODAL.ERROR,
       });
     }
-  });
+  }, []);
 
   useEffect(() => {
     assigmentValues();

@@ -6,6 +6,11 @@ export const ACTION_TYPE = Object.freeze({
   DELETE: "delete",
 });
 
+export const LIST_PROPERTIES = Object.freeze({
+  CURRENT_PAGE: 1,
+  PER_PAGE: 10,
+});
+
 export const NAME_INPUT = Object.freeze({
   EMAIL: "EMAIL",
   PASSWORD: "PASSWORD",
@@ -14,6 +19,8 @@ export const NAME_INPUT = Object.freeze({
   LAST_NAME: "LAST_NAME",
   PHONE: "PHONE",
   NAME: "NAME",
+  TITLE: "TITLE",
+  TYPES: "TYPES",
 });
 
 export const TYPE_INPUT = Object.freeze({
