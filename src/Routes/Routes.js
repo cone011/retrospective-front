@@ -4,17 +4,22 @@ import SignUp from "../components/SignUp/SignUp";
 import ProtectedRoute from "./ProtectedRoute";
 import HomePage from "../Pages/HomePage";
 import TypesPage from "../Pages/TypesPage";
+import Navbar from "../components/UI/Navbar/Navbar";
+import { Fragment } from "react";
 
 const RoutesPages = () => {
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route exact element={<ProtectedRoute />}>
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/type" element={<TypesPage />} />
-      </Route>
-    </Routes>
+    <Fragment>
+      <Navbar />
+      <Routes>
+        <Route path="/login" exact element={<Login />} />
+        <Route path="/signup" exact element={<SignUp />} />
+        <Route exact element={<ProtectedRoute />}>
+          <Route path="/home" exact element={<HomePage />} />
+          <Route path="/type" exact element={<TypesPage />} />
+        </Route>
+      </Routes>
+    </Fragment>
   );
 };
 

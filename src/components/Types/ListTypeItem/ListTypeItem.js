@@ -4,10 +4,17 @@ const ListTypeItem = (props) => {
   const { _id, name } = props;
 
   return (
-    <li key={_id} className={classes.itemType}>
-      <div className={classes.content}>
-        <h2>{name}</h2>
-      </div>
+    <li className={classes.item}>
+      <figure>
+        <blockquote>
+          <p>{name}</p>
+        </blockquote>
+        <figcaption>{_id}</figcaption>
+        <div className={classes.buttons}>
+          <button className="btn">Edit</button>
+          <button className="btn">Delete</button>
+        </div>
+      </figure>
     </li>
   );
 };

@@ -29,7 +29,6 @@ export function logout() {
 }
 
 export function login(token, expirationDate) {
-  console.log(token);
   localStorage.setItem("token", token);
   localStorage.setItem("expiration", expirationDate);
 }

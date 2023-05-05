@@ -52,12 +52,15 @@ const Login = () => {
         authCtx.login(result, expiration);
         const tokenDuration = getTokenDuration();
         if (tokenDuration > 0) {
-          console.log("entro");
-          navigate("/type");
+          navigate("/home");
         }
       }
     } catch (err) {
-      console.log(err);
+      dispatchTodo({
+        type: TYPE_REDUCER_ACTION.SET_ERROR,
+        message: err,
+        typeModal: TYPE_MODAL.ERROR,
+      });
     }
   };
 

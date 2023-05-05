@@ -1,17 +1,24 @@
+import { Fragment } from "react";
 import ListTypeItem from "../ListTypeItem/ListTypeItem";
 import classes from "./ListTypes.module.css";
+import Layout from "../../UI/Layout/Layout";
 
 const ListTypes = (props) => {
   const { types } = props;
+
   return (
-    <div className={classes.events}>
-      <h1>All Types</h1>
-      <ul className={classes.list}>
-        {types.map((item) => (
-          <ListTypeItem _id={item._id} name={item.name} />
-        ))}
-      </ul>
-    </div>
+    <Fragment>
+      <Layout>
+        <div className={classes.sortingList}>
+          <button>Sort CONFIG</button>
+        </div>
+        <ul className={classes.listType}>
+          {types.map((item) => (
+            <ListTypeItem key={item._id} _id={item._id} name={item.name} />
+          ))}
+        </ul>
+      </Layout>
+    </Fragment>
   );
 };
 
