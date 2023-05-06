@@ -1,14 +1,37 @@
-.button {
+.form {
+  position: relative;
+}
+
+.control {
+  margin-bottom: 0.5rem;
+}
+
+.control label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.control input {
+  font: inherit;
+  padding: 0.35rem;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  border: 1px solid #c1d1d1;
+  display: block;
   width: 100%;
-  padding: 16px 0px;
-  border: none;
-  border-radius: 6px;
-  outline: none;
-  text-transform: uppercase;
-  font-weight: 900;
-  letter-spacing: 3px;
-  cursor: pointer;
-  margin-top: 15px;
-  background: #b3daf2;
-  color: black;
+  font-size: 1.25rem;
+}
+
+.control input:focus {
+  background-color: #cbf8f8;
+  outline-color: teal;
+}
+
+.action {
+  text-align: right;
+}
+
+.action button {
+  font-size: 1.25rem;
 }

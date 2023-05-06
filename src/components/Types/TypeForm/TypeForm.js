@@ -1,4 +1,5 @@
-import { useState, useReducer, Fragment } from "react";
+import { useState, useReducer, Fragment, useCallback, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import classes from "./TypeForm.module.css";
 import {
   NAME_INPUT,
@@ -9,15 +10,31 @@ import {
 } from "../../../utils/const";
 import { todoReducer } from "../../Reducer/Reducer";
 import ShowModal from "../../UI/ShowModal/ShowModal";
-import { saveType } from "../../../api/type";
-import CustomInput from "../../UI/CustomInput/CustomInput";
+import { getTypeById, saveType } from "../../../api/type";
+import Card from "../../UI/Card/Card";
+import Layout from "../../UI/Layout/Layout";
 
-const TagForm = () => {
+const TypeForm = () => {
+  const location = useLocation();
+  const { typeId, isNew } = location.state;
+  const [isEntering, setIsEntering] = useState(false);
   const [name, setName] = useState("");
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
+  const navigate = useNavigate();
 
-  const onValueReturnData = (data, nameInput) => {
-    if (nameInput === NAME_INPUT.NAME) setName(data);
+  const assigmentValues = useCallback(async () => {
+    if (!isNew) {
+      const result = await getTypeById(typeId);
+      setName(result.name);
+    }
+  }, [isNew, typeId]);
+
+  useEffect(() => {
+    assigmentValues();
+  }, [assigmentValues]);
+
+  const onValueReturnData = (event) => {
+    setName(event.target.value);
   };
 
   const onSubmitData = async (event) => {
@@ -35,14 +52,15 @@ const TagForm = () => {
       });
     }
 
-    const result = await saveType({ isNew: true, name: name });
+    const result = await saveType({ isNew: isNew, name: name, typeId: typeId });
 
     if (result) {
       dispatchTodo({
         type: TYPE_REDUCER_ACTION.SET_CONFIRM,
-        message: "SIGNUP OK",
+        message: "Save type complete",
         typeModal: TYPE_MODAL.CONFIRM,
       });
+      navigate("/type");
     }
   };
 
@@ -50,20 +68,34 @@ const TagForm = () => {
     dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
   };
 
+  const onFormFocusedHandler = () => {
+    setIsEntering(true);
+  };
+
   return (
     <Fragment>
-      <form className={classes.form} onSubmit={onSubmitData}>
-        <CustomInput
-          value={name}
-          typeInput={TYPE_INPUT.TEXT}
-          nameInput={NAME_INPUT.NAME}
-          labelInput={NAME_INPUT.NAME}
-          onReturnValue={onValueReturnData}
-        />
-        <button className={classes.button} type="submit">
-          Save
-        </button>
-      </form>
+      <Layout>
+        <Card>
+          <form
+            className={classes.form}
+            onFocus={onFormFocusedHandler}
+            onSubmit={onSubmitData}
+          >
+            <div className={classes.control}>
+              <label htmlFor="name">Name</label>
+              <input
+                type={TYPE_INPUT.TEXT}
+                id={NAME_INPUT.NAME}
+                value={name}
+                onChange={onValueReturnData}
+              />
+            </div>
+            <div className={classes.actions}>
+              <button type="submit">Save</button>
+            </div>
+          </form>
+        </Card>
+      </Layout>
       {todo.isLoading && (
         <ShowModal message={todo.message} typeModal={todo.typeModal} />
       )}
@@ -86,4 +118,4 @@ const TagForm = () => {
   );
 };
 
-export default TagForm;
+export default TypeForm;

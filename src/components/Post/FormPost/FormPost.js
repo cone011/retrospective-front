@@ -8,10 +8,15 @@ import {
   TYPE_REDUCER_ACTION,
   NAME_INPUT,
 } from "../../../utils/const";
+import ShowModal from "../../UI/ShowModal/ShowModal";
+import Layout from "../../UI/Layout/Layout";
+import Card from "../../UI/Card/Card";
 import { getPostById, savePost } from "../../../api/post";
+import { useLocation } from "react-router-dom";
 
-const FormPost = (props) => {
-  const { postId, isNew } = props;
+const FormPost = () => {
+  const location = useLocation();
+  const { postId, isNew } = location.state;
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const [title, setTitle] = useState("");
   const [types, setTypes] = useState([]);
@@ -29,9 +34,8 @@ const FormPost = (props) => {
     assigmentValues();
   }, [assigmentValues]);
 
-  const onValueReturnData = (data, nameInput) => {
-    if (nameInput === NAME_INPUT.TITLE) setTitle(data);
-    if (nameInput === NAME_INPUT.TYPES) setTypes(data);
+  const onTitleHandler = (event) => {
+    setTitle(event.target.value);
   };
 
   const onSubmitData = async (event) => {
@@ -83,20 +87,48 @@ const FormPost = (props) => {
     }
   };
 
+  const onCloseModal = () => {
+    dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
+  };
+
   return (
     <Fragment>
-      <form onSubmit={onSubmitData}>
-        <CustomInput
-          value={title}
-          typeInput={TYPE_INPUT.TEXT}
-          nameInput={NAME_INPUT.TITLE}
-          labelInput={NAME_INPUT.TITLE}
-          onReturnValue={onValueReturnData}
+      <Layout>
+        <Card>
+          <form className={classes.form} onSubmit={onSubmitData}>
+            <div className={classes.control}>
+              <label htmlFor="title">Title</label>
+              <input
+                type={TYPE_INPUT.TEXT}
+                id={NAME_INPUT.TITLE}
+                value={title}
+                onChange={onTitleHandler}
+              />
+            </div>
+            <div className={classes.actions}>
+              <button type="submit">Save</button>
+            </div>
+          </form>
+        </Card>
+      </Layout>
+      {todo.isLoading && (
+        <ShowModal message={todo.message} typeModal={todo.typeModal} />
+      )}
+      {todo.isError && (
+        <ShowModal
+          message={todo.message}
+          typeModal={todo.typeModal}
+          onClose={onCloseModal}
         />
-        <button className={classes.button} type="submit">
-          Enter
-        </button>
-      </form>
+      )}
+      {todo.isConfirm && (
+        <ShowModal
+          message={todo.message}
+          typeModal={todo.typeModal}
+          onClose={onCloseModal}
+          onConfirm={onCloseModal}
+        />
+      )}
     </Fragment>
   );
 };

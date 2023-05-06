@@ -20,6 +20,7 @@ export async function getAllTypes(parameters) {
 
 export async function getTypeById(typeId) {
   const token = getAuthToken();
+  console.log(typeId);
   const result = await fetch(`${CALL_API}/type/${typeId}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -54,7 +55,6 @@ export async function saveType(typeObject) {
     }),
   });
   const data = await result.json();
-  console.log(data);
   if (!result.ok) {
     console.log(data);
     throw new Error("Could not save the data");

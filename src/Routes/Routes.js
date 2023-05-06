@@ -1,11 +1,13 @@
 import { Routes, Route } from "react-router-dom";
+import { Fragment } from "react";
 import Login from "../components/login/login";
 import SignUp from "../components/SignUp/SignUp";
 import ProtectedRoute from "./ProtectedRoute";
 import HomePage from "../Pages/HomePage";
 import TypesPage from "../Pages/TypesPage";
 import Navbar from "../components/UI/Navbar/Navbar";
-import { Fragment } from "react";
+import TypeForm from "../components/Types/TypeForm/TypeForm";
+import FormPost from "../components/Post/FormPost/FormPost";
 
 const RoutesPages = () => {
   return (
@@ -17,6 +19,8 @@ const RoutesPages = () => {
         <Route exact element={<ProtectedRoute />}>
           <Route path="/home" exact element={<HomePage />} />
           <Route path="/type" exact element={<TypesPage />} />
+          <Route path="/type-from" exact element={<TypeForm />} />
+          <Route path="/post-from" exact element={<FormPost />} />
         </Route>
       </Routes>
     </Fragment>
