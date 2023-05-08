@@ -11,6 +11,12 @@ export const LIST_PROPERTIES = Object.freeze({
   PER_PAGE: 10,
 });
 
+export const TYPE_POST = Object.freeze({
+  WENT_WELL: "WentWell",
+  TO_IMPROVE: "toImprove",
+  KUDOS: "Kudos",
+});
+
 export const NAME_INPUT = Object.freeze({
   EMAIL: "EMAIL",
   PASSWORD: "PASSWORD",

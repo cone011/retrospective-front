@@ -32,7 +32,7 @@ export async function getPostById(postId) {
 }
 
 export async function savePost(postData) {
-  const { title, type, postId, isNew } = postData;
+  const { title, typePost, type, postId, isNew } = postData;
   const token = getAuthToken();
   let urlApi = `${CALL_API}/post`;
   let method = "POST";
@@ -48,6 +48,7 @@ export async function savePost(postData) {
     method: method,
     body: JSON.stringify({
       title: title,
+      typePost: typePost,
       type: type,
     }),
   });

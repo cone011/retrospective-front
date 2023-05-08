@@ -38,7 +38,6 @@ const ShowModal = (props) => {
   }
 
   if (typeModal === TYPE_MODAL.CONFIRM) {
-    console.log("entro");
     return (
       <Fragment>
         <CustomModal onClose={onClose}>

@@ -12,7 +12,9 @@
   margin-bottom: 0.5rem;
 }
 
-.control input {
+.checkBox,
+.control input,
+select {
   font: inherit;
   padding: 0.35rem;
   border-radius: 4px;
@@ -23,7 +25,9 @@
   font-size: 1.25rem;
 }
 
-.control input:focus {
+.checkBox,
+.control input,
+select:focus {
   background-color: #cbf8f8;
   outline-color: teal;
 }

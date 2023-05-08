@@ -38,8 +38,13 @@ const PostLine = (props) => {
         flexDirection="column"
         p={2}
       >
-        {items.map((item, index) => (
-          <PostItem key={index} title={item} index={index} parent={title} />
+        {items.map((item) => (
+          <PostItem
+            key={item._id}
+            title={item.title}
+            index={item._id}
+            parent={title}
+          />
         ))}
       </Flex>
     </Flex>

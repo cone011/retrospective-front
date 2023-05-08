@@ -18,6 +18,19 @@ export async function getAllTypes(parameters) {
   return data.types;
 }
 
+export async function getAllTypesForSelect() {
+  const token = getAuthToken();
+  const result = await fetch(`${CALL_API}/select-type`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await result.json();
+  if (!result.ok) {
+    console.log(data);
+    throw new Error("Could not get the data");
+  }
+  return data.types;
+}
+
 export async function getTypeById(typeId) {
   const token = getAuthToken();
   console.log(typeId);
