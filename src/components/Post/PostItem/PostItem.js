@@ -1,9 +1,13 @@
+import { useReducer } from "react";
 import { Flex, Text } from "@chakra-ui/react";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
+import { defaultTodoReducer } from "../../../utils/const";
+import { todoReducer } from "../../Reducer/Reducer";
 
 const PostItem = (props) => {
   const { title, index, parent } = props;
+  const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: `card-${title}`,
     data: {

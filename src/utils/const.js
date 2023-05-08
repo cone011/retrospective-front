@@ -41,6 +41,7 @@ export const TYPE_MODAL = Object.freeze({
   LOADING: "LOADING",
   ERROR: "ERROR",
   CONFIRM: "CONFIRM",
+  ACTION: "ACTION",
 });
 
 export const TYPE_REDUCER_ACTION = Object.freeze({

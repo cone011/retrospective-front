@@ -5,7 +5,23 @@ import LoadingSpinner from "../loadingSpinner/loadingSpinner";
 import { TYPE_MODAL } from "../../../utils/const";
 
 const ShowModal = (props) => {
-  const { onClose, onConfirm, typeModal, message } = props;
+  const {
+    onClose,
+    onConfirm,
+    onUpdate,
+    onDelete,
+    typeModal,
+    registerId,
+    message,
+  } = props;
+
+  const onDeleteRegistration = () => {
+    onDelete(registerId);
+  };
+
+  const onUpdateRegistration = () => {
+    onUpdate(registerId);
+  };
 
   if (typeModal === TYPE_MODAL.LOADING) {
     return (
@@ -49,6 +65,34 @@ const ShowModal = (props) => {
           <div className={classes.actions}>
             <button className={classes["buton--alt"]} onClick={onConfirm}>
               Ok
+            </button>
+          </div>
+        </CustomModal>
+      </Fragment>
+    );
+  }
+
+  if (typeModal === TYPE_MODAL.ACTION) {
+    return (
+      <Fragment>
+        <CustomModal onClose={onClose}>
+          <div className={classes.messaage}>
+            <span>
+              <strong>{message}</strong>
+            </span>
+          </div>
+          <div className={classes.actions}>
+            <button
+              className={classes["buton--alt"]}
+              onClick={onUpdateRegistration}
+            >
+              Editar
+            </button>
+            <button
+              className={classes["buton--alt"]}
+              onClick={onDeleteRegistration}
+            >
+              Eliminar
             </button>
           </div>
         </CustomModal>

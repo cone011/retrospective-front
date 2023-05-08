@@ -24,7 +24,6 @@ const FormPost = () => {
   const [title, setTitle] = useState("");
   const [typePostSelected, setTypePostSelected] = useState({});
   const [typeSelected, setTypeSelected] = useState([]);
-  const [types, setTypes] = useState([]);
   const [listType, setListType] = useState([]);
   const [listTypePost, setListTypePost] = useState([]);
 
