@@ -16,6 +16,7 @@ import { getPostById, savePost } from "../../../api/post";
 import SelectCheck from "react-select";
 import { getAllTypesForSelect } from "../../../api/type";
 import { getAllTypePost } from "../../../api/typePost";
+import ListComment from "../../Comments/ListComment/ListComment";
 
 const FormPost = () => {
   const location = useLocation();
@@ -161,8 +162,11 @@ const FormPost = () => {
                 onChange={onTypesHandler}
               />
             </div>
-            <div className={classes.actions}>
-              <button type="submit">Save</button>
+            <ListComment haveComments={false} />
+            <div className={classes.action}>
+              <button className="btn" type="submit">
+                Save
+              </button>
             </div>
           </form>
         </Card>

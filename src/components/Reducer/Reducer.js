@@ -34,6 +34,18 @@ export const todoReducer = (curTodo, action) => {
         message: action.message,
         typeModal: action.typeModal,
       };
+    case TYPE_REDUCER_ACTION.SET_COMMENT:
+      return {
+        ...curTodo,
+        haveComments: action.haveComments,
+        compoment: action.compoment,
+      };
+    case TYPE_REDUCER_ACTION.SET_COMMENT_FORM:
+      return {
+        ...curTodo,
+        isForm: true,
+        compoment: action.compoment,
+      };
     case TYPE_REDUCER_ACTION.SET_END:
       return {
         ...curTodo,
@@ -41,6 +53,8 @@ export const todoReducer = (curTodo, action) => {
         isConfirm: false,
         isError: false,
         isShowing: false,
+        haveComments: false,
+        isForm: false,
       };
     default:
       throw new Error("This action is not on the list");

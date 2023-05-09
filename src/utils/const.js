@@ -50,6 +50,8 @@ export const TYPE_REDUCER_ACTION = Object.freeze({
   SET_ERROR: "SET_ERROR",
   SET_END: "SET_END",
   SET_ACTION: "SET_ACTION",
+  SET_COMMENT: "SET_COMMENT",
+  SET_COMMENT_FORM: "SET_COMMENT_FORM",
 });
 
 export const defaultTodoReducer = {
@@ -61,4 +63,5 @@ export const defaultTodoReducer = {
   postId: null,
   typeModal: null,
   message: null,
+  haveComments: false,
 };

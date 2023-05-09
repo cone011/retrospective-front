@@ -38,4 +38,5 @@ select:focus {
 
 .action button {
   font-size: 1.25rem;
+  align-items: center;
 }
