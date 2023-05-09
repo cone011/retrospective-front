@@ -73,7 +73,6 @@ const ShowModal = (props) => {
   }
 
   if (typeModal === TYPE_MODAL.ACTION) {
-    console.log(registerId);
     return (
       <Fragment>
         <CustomModal onClose={onClose}>

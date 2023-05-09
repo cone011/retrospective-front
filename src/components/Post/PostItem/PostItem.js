@@ -1,4 +1,4 @@
-import { Fragment, useReducer } from "react";
+import { Fragment } from "react";
 import { Flex, Text } from "@chakra-ui/react";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";

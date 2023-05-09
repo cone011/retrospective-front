@@ -8,6 +8,7 @@ import TypesPage from "../Pages/TypesPage";
 import Navbar from "../components/UI/Navbar/Navbar";
 import TypeForm from "../components/Types/TypeForm/TypeForm";
 import FormPost from "../components/Post/FormPost/FormPost";
+import NotFound from "../Pages/NotFound";
 
 const RoutesPages = () => {
   return (
@@ -17,11 +18,12 @@ const RoutesPages = () => {
         <Route path="/login" exact element={<Login />} />
         <Route path="/signup" exact element={<SignUp />} />
         <Route exact element={<ProtectedRoute />}>
-          <Route path="/home" exact element={<HomePage />} />
+          <Route path="/" exact element={<HomePage />} />
           <Route path="/type" exact element={<TypesPage />} />
           <Route path="/type-from" exact element={<TypeForm />} />
           <Route path="/post-from" exact element={<FormPost />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Fragment>
   );

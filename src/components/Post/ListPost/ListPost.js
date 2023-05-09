@@ -1,5 +1,6 @@
 import { DndContext, rectIntersection } from "@dnd-kit/core";
 import { Fragment, useCallback, useEffect, useReducer, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import classes from "./ListPost.module.css";
 import { todoReducer } from "../../Reducer/Reducer";
 import {
@@ -14,11 +15,11 @@ import PostLine from "../PostLine/PostLine";
 import { deletePost, getAllPost } from "../../../api/post";
 import { socket } from "../../../socket";
 import ShowModal from "../../UI/ShowModal/ShowModal";
-import { async } from "q";
 
 const ListPost = () => {
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const [listPost, setListPost] = useState([]);
+  const navigate = useNavigate();
   const [wentWellList, setWentWellList] = useState([]);
   const [toImproveList, setToImproveList] = useState([]);
   const [kudos, setKudosList] = useState([]);
@@ -46,15 +47,27 @@ const ListPost = () => {
   }, []);
 
   const onDeletePost = useCallback(async (data) => {
-    const result = await deletePost(data);
-    if (result) {
+    try {
+      const result = await deletePost(data);
+      if (result) {
+        dispatchTodo({
+          type: TYPE_REDUCER_ACTION.SET_CONFIRM,
+          message: "The post was deleted correctly",
+          typeModal: TYPE_MODAL.CONFIRM,
+        });
+      }
+    } catch (err) {
       dispatchTodo({
-        type: TYPE_REDUCER_ACTION.SET_CONFIRM,
-        message: "The post was deleted correctly",
-        typeModal: TYPE_MODAL.CONFIRM,
+        type: TYPE_REDUCER_ACTION.SET_ERROR,
+        message: err,
+        typeModal: TYPE_MODAL.ERROR,
       });
     }
   }, []);
+
+  const onModifyPost = (data) => {
+    navigate("/post-from", { state: { postId: data, isNew: false } });
+  };
 
   const onPutValues = (data) => {
     const listWent = [];
@@ -97,13 +110,14 @@ const ListPost = () => {
   };
 
   const updatePost = (post) => {
-    setListPost((prevPost) => {
-      const updateIndex = prevPost.findIndex((item) => item._id === post._id);
+    setListPost((prevState) => {
+      const updatePost = prevState;
+      const updateIndex = updatePost.findIndex((item) => item._id === post._id);
       if (updateIndex > -1) {
-        prevPost[updateIndex] = post;
+        updatePost[updateIndex] = post;
       }
-      onPutValues(prevPost);
-      return prevPost;
+      onPutValues(updatePost);
+      return updatePost;
     });
   };
 
@@ -221,6 +235,7 @@ const ListPost = () => {
           typeModal={todo.typeModal}
           message={todo.message}
           onDelete={onDeletePost}
+          onUpdate={onModifyPost}
           onClose={onCloseModalHandler}
         />
       )}

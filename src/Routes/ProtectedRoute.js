@@ -5,7 +5,6 @@ import AuthContext, { getAuthToken } from "../context/auth-context";
 const ProtectedRoute = () => {
   const authCtx = useContext(AuthContext);
   const result = getAuthToken();
-  console.log(result);
   if (result == null) authCtx.logout();
   return <>{result !== null ? <Outlet /> : <Navigate to="/login" />}</>;
 };

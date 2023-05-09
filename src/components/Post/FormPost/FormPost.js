@@ -1,4 +1,5 @@
 import { Fragment, useCallback, useEffect, useReducer, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import classes from "./FormPost.module.css";
 import { todoReducer } from "../../Reducer/Reducer";
 import {
@@ -12,7 +13,6 @@ import ShowModal from "../../UI/ShowModal/ShowModal";
 import Layout from "../../UI/Layout/Layout";
 import Card from "../../UI/Card/Card";
 import { getPostById, savePost } from "../../../api/post";
-import { useLocation } from "react-router-dom";
 import SelectCheck from "react-select";
 import { getAllTypesForSelect } from "../../../api/type";
 import { getAllTypePost } from "../../../api/typePost";
@@ -20,6 +20,7 @@ import { getAllTypePost } from "../../../api/typePost";
 const FormPost = () => {
   const location = useLocation();
   const { postId, isNew } = location.state;
+  const navigate = useNavigate();
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const [title, setTitle] = useState("");
   const [typePostSelected, setTypePostSelected] = useState({});
@@ -28,14 +29,24 @@ const FormPost = () => {
   const [listTypePost, setListTypePost] = useState([]);
 
   const assigmentValues = useCallback(async () => {
-    if (!isNew) {
-      const result = await getPostById(postId);
-      const { title, type } = result;
-    }
     const resultTypePost = await getAllTypePost();
     setListTypePost(resultTypePost);
     const resultType = await getAllTypesForSelect();
     setListType(resultType);
+    if (!isNew) {
+      const result = await getPostById(postId);
+      const { title, type, typePost } = result;
+      const defaultTypes = [];
+      const defaultTypePost = resultTypePost.find(
+        (item) => item.value === typePost
+      );
+      for (let i = 0; i < type.length; i++) {
+        defaultTypes.push(resultType.find((item) => item.value === type[i]));
+      }
+      setTitle(title);
+      setTypeSelected(defaultTypes);
+      setTypePostSelected(defaultTypePost);
+    }
   }, [isNew, postId]);
 
   useEffect(() => {
@@ -49,7 +60,7 @@ const FormPost = () => {
   const onTypesHandler = (data) => {
     setTypeSelected(
       data.map((item) => {
-        return item.value;
+        return item;
       })
     );
   };
@@ -80,10 +91,14 @@ const FormPost = () => {
         });
       }
 
+      const listTypeId = typeSelected.map((item) => {
+        return item.value;
+      });
+
       const result = await savePost({
         title: title,
         typePost: typePostSelected,
-        type: typeSelected,
+        type: listTypeId,
         postId: postId ? postId : null,
         isNew: isNew,
       });
@@ -91,9 +106,10 @@ const FormPost = () => {
       if (result) {
         dispatchTodo({
           type: TYPE_REDUCER_ACTION.SET_CONFIRM,
-          message: "SIGNUP OK",
+          message: "The post was saved correctly",
           typeModal: TYPE_MODAL.CONFIRM,
         });
+        //navigate("/");
       }
     } catch (err) {
       dispatchTodo({
@@ -131,6 +147,7 @@ const FormPost = () => {
               <SelectCheck
                 className={classes.checkBox}
                 options={listTypePost}
+                value={typePostSelected}
                 onChange={onTypePostHandler}
               />
             </div>
@@ -139,6 +156,7 @@ const FormPost = () => {
               <SelectCheck
                 className={classes.checkBox}
                 isMulti
+                value={typeSelected}
                 options={listType}
                 onChange={onTypesHandler}
               />
