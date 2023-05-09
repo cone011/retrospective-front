@@ -1,5 +1,5 @@
 import { DndContext, rectIntersection } from "@dnd-kit/core";
-import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useReducer, useState } from "react";
 import classes from "./ListPost.module.css";
 import { todoReducer } from "../../Reducer/Reducer";
 import {
@@ -11,8 +11,10 @@ import {
 } from "../../../utils/const";
 import { Flex } from "@chakra-ui/react";
 import PostLine from "../PostLine/PostLine";
-import { getAllPost } from "../../../api/post";
+import { deletePost, getAllPost } from "../../../api/post";
 import { socket } from "../../../socket";
+import ShowModal from "../../UI/ShowModal/ShowModal";
+import { async } from "q";
 
 const ListPost = () => {
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
@@ -20,7 +22,6 @@ const ListPost = () => {
   const [wentWellList, setWentWellList] = useState([]);
   const [toImproveList, setToImproveList] = useState([]);
   const [kudos, setKudosList] = useState([]);
-  const auxRef = useRef();
 
   const onPutCorrectTheValues = useCallback((data) => {
     const listWent = [];
@@ -44,31 +45,46 @@ const ListPost = () => {
     setKudosList(listKudo);
   }, []);
 
+  const onDeletePost = useCallback(async (data) => {
+    const result = await deletePost(data);
+    if (result) {
+      dispatchTodo({
+        type: TYPE_REDUCER_ACTION.SET_CONFIRM,
+        message: "The post was deleted correctly",
+        typeModal: TYPE_MODAL.CONFIRM,
+      });
+    }
+  }, []);
+
   const onPutValues = (data) => {
-    console.log(data);
     const listWent = [];
     const listImprove = [];
     const listKudo = [];
     let currentValue;
     for (let i = 0; i < data.length; i++) {
       currentValue = data[i];
-      console.log(currentValue);
-      if (currentValue.typePost.name === TYPE_POST.WENT_WELL) {
+      if (
+        currentValue.typePost.label === TYPE_POST.WENT_WELL ||
+        currentValue.typePost.name === TYPE_POST.WENT_WELL
+      ) {
         listWent.push({ title: currentValue.title, _id: currentValue._id });
       }
-      if (currentValue.typePost.name === TYPE_POST.TO_IMPROVE) {
+      if (
+        currentValue.typePost.label === TYPE_POST.TO_IMPROVE ||
+        currentValue.typePost.name === TYPE_POST.TO_IMPROVE
+      ) {
         listImprove.push({ title: currentValue.title, _id: currentValue._id });
       }
-      if (currentValue.typePost.name === TYPE_POST.KUDOS) {
+      if (
+        currentValue.typePost.label === TYPE_POST.KUDOS ||
+        currentValue.typePost.name === TYPE_POST.KUDOS
+      ) {
         listKudo.push({ title: currentValue.title, _id: currentValue._id });
       }
     }
     setWentWellList(listWent);
     setToImproveList(listImprove);
     setKudosList(listKudo);
-    console.log("Went", listWent);
-    console.log("Improve", listImprove);
-    console.log("Kudo", listKudo);
   };
 
   const addPost = (post) => {
@@ -78,8 +94,6 @@ const ListPost = () => {
       onPutValues(updatePost);
       return updatePost;
     });
-    // console.log(listPost);
-    // onPutCorrectTheValues(listPost);
   };
 
   const updatePost = (post) => {
@@ -88,9 +102,8 @@ const ListPost = () => {
       if (updateIndex > -1) {
         prevPost[updateIndex] = post;
       }
-      return {
-        ...prevPost,
-      };
+      onPutValues(prevPost);
+      return prevPost;
     });
   };
 
@@ -117,7 +130,6 @@ const ListPost = () => {
         });
       }
       setListPost(result.Posts);
-      console.log(result.Posts.length);
       onPutCorrectTheValues(result.Posts);
     } catch (err) {
       dispatchTodo({
@@ -135,60 +147,92 @@ const ListPost = () => {
 
   const arrayLanes = [
     {
-      title: "Went Well",
+      title: TYPE_POST.WENT_WELL,
       items: wentWellList,
       color: "green",
     },
     {
-      title: "To Improve",
+      title: TYPE_POST.TO_IMPROVE,
       items: toImproveList,
       color: "yellow",
     },
     {
-      title: "Kudos",
+      title: TYPE_POST.KUDOS,
       items: kudos,
       color: "red",
     },
   ];
 
   const onChangePlace = (data) => {
-    console.log(data);
-    const container = data.over?.id;
-    const title = data.active.current?.title || "";
-    const index = data.active.current?.index || 0;
-    const parent = data.active.current?.parent || "Kudos";
-    if (container === "Went Well") setWentWellList([...wentWellList, title]);
-    if (container === "To Improve") setToImproveList([...toImproveList, title]);
-    if (container === "Kudos") setKudosList([...kudos, title]);
-    if (parent === "Went Well")
-      setWentWellList([
-        ...wentWellList.slice(0, index),
-        ...wentWellList.slice(index + 1),
-      ]);
-    if (parent === "To Improve")
-      setWentWellList([
-        ...toImproveList.slice(0, index),
-        ...toImproveList.slice(index + 1),
-      ]);
-    if (parent === "Kudos")
-      setWentWellList([...kudos.slice(0, index), ...kudos.slice(index + 1)]);
+    const index = data.active.data.current?.index;
+    dispatchTodo({
+      type: TYPE_REDUCER_ACTION.SET_ACTION,
+      postId: index,
+      typeModal: TYPE_MODAL.ACTION,
+      message: "What action do you wanna do?",
+    });
+    // const container = data.over?.id;
+    // const title = data.active.current?.title || "";
+    // const index = data.active.current?.index || 0;
+    // const parent = data.active.current?.parent || "Kudos";
+    // if (container === "Went Well") setWentWellList([...wentWellList, title]);
+    // if (container === "To Improve") setToImproveList([...toImproveList, title]);
+    // if (container === "Kudos") setKudosList([...kudos, title]);
+    // if (parent === "Went Well")
+    //   setWentWellList([
+    //     ...wentWellList.slice(0, index),
+    //     ...wentWellList.slice(index + 1),
+    //   ]);
+    // if (parent === "To Improve")
+    //   setWentWellList([
+    //     ...toImproveList.slice(0, index),
+    //     ...toImproveList.slice(index + 1),
+    //   ]);
+    // if (parent === "Kudos")
+    //   setWentWellList([...kudos.slice(0, index), ...kudos.slice(index + 1)]);
+  };
+
+  const onCloseModalHandler = () => {
+    dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
   };
 
   return (
-    <DndContext collisionDetection={rectIntersection} onDragEnd={onChangePlace}>
-      <Flex flexDirection="column">
-        <Flex flex="3">
-          {arrayLanes.map((item, index) => (
-            <PostLine
-              key={index}
-              title={item.title}
-              items={item.items}
-              color={item.color}
-            />
-          ))}
+    <Fragment>
+      <DndContext
+        collisionDetection={rectIntersection}
+        onDragEnd={onChangePlace}
+      >
+        <Flex flexDirection="column">
+          <Flex flex="3">
+            {arrayLanes.map((item, index) => (
+              <PostLine
+                key={index}
+                title={item.title}
+                items={item.items}
+                color={item.color}
+              />
+            ))}
+          </Flex>
         </Flex>
-      </Flex>
-    </DndContext>
+      </DndContext>
+      {todo.isShowing && (
+        <ShowModal
+          registerId={todo.postId}
+          typeModal={todo.typeModal}
+          message={todo.message}
+          onDelete={onDeletePost}
+          onClose={onCloseModalHandler}
+        />
+      )}
+      {todo.isConfirm && (
+        <ShowModal
+          message={todo.message}
+          typeModal={todo.typeModal}
+          onClose={onCloseModalHandler}
+          onConfirm={onCloseModalHandler}
+        />
+      )}
+    </Fragment>
   );
 };
 

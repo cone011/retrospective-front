@@ -12,8 +12,8 @@ export const LIST_PROPERTIES = Object.freeze({
 });
 
 export const TYPE_POST = Object.freeze({
-  WENT_WELL: "WentWell",
-  TO_IMPROVE: "toImprove",
+  WENT_WELL: "Went Well",
+  TO_IMPROVE: "To Improve",
   KUDOS: "Kudos",
 });
 
@@ -49,6 +49,7 @@ export const TYPE_REDUCER_ACTION = Object.freeze({
   SET_CONFIRM: "SET_CONFIRM",
   SET_ERROR: "SET_ERROR",
   SET_END: "SET_END",
+  SET_ACTION: "SET_ACTION",
 });
 
 export const defaultTodoReducer = {
@@ -56,6 +57,8 @@ export const defaultTodoReducer = {
   isShow: false,
   isError: false,
   isConfirm: false,
+  isShowing: null,
+  postId: null,
   typeModal: null,
   message: null,
 };

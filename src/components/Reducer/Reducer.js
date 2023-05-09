@@ -14,6 +14,7 @@ export const todoReducer = (curTodo, action) => {
         ...curTodo,
         isConfirm: true,
         isLoading: false,
+        isShowing: false,
         message: action.message,
         typeModal: action.typeModal,
       };
@@ -25,12 +26,21 @@ export const todoReducer = (curTodo, action) => {
         message: action.message,
         typeModal: action.typeModal,
       };
+    case TYPE_REDUCER_ACTION.SET_ACTION:
+      return {
+        ...curTodo,
+        isShowing: true,
+        postId: action.postId,
+        message: action.message,
+        typeModal: action.typeModal,
+      };
     case TYPE_REDUCER_ACTION.SET_END:
       return {
         ...curTodo,
         isLoading: false,
         isConfirm: false,
         isError: false,
+        isShowing: false,
       };
     default:
       throw new Error("This action is not on the list");
