@@ -14,6 +14,7 @@ const PostLine = (props) => {
   return (
     <Flex
       flex="3"
+      padding="1.25rem"
       flexDirection="column"
       minH="10rem"
       height={countItems > 0 ? "auto" : "10rem  "}

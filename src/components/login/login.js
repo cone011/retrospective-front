@@ -1,7 +1,10 @@
 import { Fragment, useReducer, useState, useContext } from "react";
 import classes from "./login.module.css";
-import { useNavigate } from "react-router-dom";
-import AuthContext, { getTokenDuration } from "../../context/auth-context";
+import { useNavigate, Link } from "react-router-dom";
+import AuthContext, {
+  getAuthToken,
+  getTokenDuration,
+} from "../../context/auth-context";
 import Img from "../Assets/loginBackground.svg";
 import CustomInput from "../UI/CustomInput/CustomInput";
 import {
@@ -17,6 +20,7 @@ import { login } from "../../api/user";
 
 const Login = () => {
   const authCtx = useContext(AuthContext);
+  const token = getAuthToken();
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -81,6 +85,18 @@ const Login = () => {
         </div>
         <div className={classes.rigthLogin}>
           <div className={classes.cardLogin}>
+            <div className={classes.userActions}>
+              {!token && (
+                <Link className={classes.userActionLink} to="/">
+                  Login
+                </Link>
+              )}
+              {!token && (
+                <Link className={classes.userActionLink} to="/signup">
+                  Sign Up
+                </Link>
+              )}
+            </div>
             <h1>Login</h1>
             <form className={classes.form} onSubmit={onLoginHandler}>
               <CustomInput

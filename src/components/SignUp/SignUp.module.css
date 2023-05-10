@@ -2,7 +2,7 @@
   margin: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #502159;
+  background-color: teal;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +35,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 30px 35px;
+  padding: 10px 35px;
   background-color: #113059;
   border-radius: 20px;
   box-shadow: 0px 10px 40px #00000056;
@@ -45,6 +45,32 @@
   color: #91b7d9;
   font-weight: 800;
   margin: 0;
+}
+
+.userActions {
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
+
+.userActionLink {
+  position: relative;
+  color: #fff;
+  text-decoration: none;
+}
+
+.userActionsLink::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(255, 255, 255);
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out 0s;
 }
 
 .imgCompoment {

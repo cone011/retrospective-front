@@ -1,4 +1,5 @@
 import { useState, useReducer, Fragment } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import classes from "./SignUp.module.css";
 import Img from "../Assets/loginBackground.svg";
 import CustomInput from "../UI/CustomInput/CustomInput";
@@ -11,9 +12,12 @@ import {
 } from "../../utils/const";
 import { todoReducer } from "../Reducer/Reducer";
 import { signUp } from "../../api/user";
+import { getAuthToken } from "../../context/auth-context";
 
 const SignUp = () => {
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
+  const token = getAuthToken();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -102,6 +106,7 @@ const SignUp = () => {
           message: "SIGNUP OK",
           typeModal: TYPE_MODAL.CONFIRM,
         });
+        navigate("/");
       }
     } catch (err) {
       console.log(err);
@@ -116,6 +121,18 @@ const SignUp = () => {
         </div>
         <div className={classes.rightSignUp}>
           <div className={classes.cardSignUp}>
+            <div className={classes.userActions}>
+              {!token && (
+                <Link className={classes.userActionLink} to="/">
+                  Login
+                </Link>
+              )}
+              {!token && (
+                <Link className={classes.userActionLink} to="/signup">
+                  Sign Up
+                </Link>
+              )}
+            </div>
             <h1>SIGN UP</h1>
             <form className={classes.form} onSubmit={onSignUpHandler}>
               <CustomInput
