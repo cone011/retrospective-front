@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { Fragment, useReducer, useState } from "react";
 import classes from "./ListComment.module.css";
 import { useCallback } from "react";
 import { useEffect } from "react";
@@ -8,13 +8,54 @@ import { defaultTodoReducer, TYPE_REDUCER_ACTION } from "../../../utils/const";
 import ListCommentItem from "../ListCommentItem/ListCommentItem";
 
 const ListComment = (props) => {
-  const { haveComments, comments } = props;
+  const { haveComments, comments, onReturnData } = props;
   const [listComments, setListComments] = useState([]);
-  const [isShowCommentForm, setIsShowCommentForm] = useState(false);
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
 
-  const onModifyComment = (data) => {
-    console.log(data);
+  const onReturnCommentsData = (commentsData) => {
+    console.log(commentsData);
+    onReturnData(commentsData);
+  };
+
+  const onModifyComment = (commentItem) => {
+    const { _id, comment, index } = commentItem;
+    dispatchTodo({
+      type: TYPE_REDUCER_ACTION.SET_COMMENT_FORM,
+      compoment: (
+        <FormComment
+          isNew={false}
+          comment={comment}
+          commentId={_id}
+          index={index}
+          onSaveForm={onSaveData}
+        />
+      ),
+    });
+  };
+
+  const onDeleteComment = (commentItem) => {
+    const { _id, index } = commentItem;
+    const auxList = listComments;
+    if (_id !== null) {
+    } else {
+      auxList.splice(index, 1);
+    }
+    setListComments(auxList);
+    dispatchTodo({
+      type: TYPE_REDUCER_ACTION.SET_COMMENT,
+      haveComments: true,
+      compoment: auxList.map((item, index) => (
+        <ListCommentItem
+          key={index}
+          index={index}
+          _id={item._id}
+          comment={item.comment}
+          onModify={onModifyComment}
+          onDelete={onDeleteComment}
+        />
+      )),
+    });
+    onReturnCommentsData(auxList);
   };
 
   const assigmentValue = useCallback(() => {
@@ -29,6 +70,7 @@ const ListComment = (props) => {
             _id={item._id}
             comment={item.comment}
             onModify={onModifyComment}
+            onDelete={onDeleteComment}
           />
         )),
       });
@@ -42,13 +84,24 @@ const ListComment = (props) => {
   }, [haveComments, comments]);
 
   const onShowCommentForm = () => {
-    setIsShowCommentForm(true);
+    dispatchTodo({
+      type: TYPE_REDUCER_ACTION.SET_COMMENT_FORM,
+      compoment: <FormComment isNew={true} onSaveForm={onSaveData} />,
+    });
   };
 
   const onSaveData = (data) => {
-    setIsShowCommentForm(false);
+    dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
+    const { _id, comment, index } = data;
     const auxList = listComments;
-    auxList.unshift(data);
+    if (auxList[index]) {
+      let currentValue = auxList[index];
+      currentValue._id = _id;
+      currentValue.comment = comment;
+      auxList[index] = currentValue;
+    } else {
+      auxList.unshift(data);
+    }
     setListComments(auxList);
     dispatchTodo({
       type: TYPE_REDUCER_ACTION.SET_COMMENT,
@@ -56,12 +109,15 @@ const ListComment = (props) => {
       compoment: auxList.map((item, index) => (
         <ListCommentItem
           key={index}
+          index={index}
           _id={item._id}
           comment={item.comment}
           onModify={onModifyComment}
+          onDelete={onDeleteComment}
         />
       )),
     });
+    onReturnCommentsData(auxList);
   };
 
   useEffect(() => {
@@ -69,18 +125,18 @@ const ListComment = (props) => {
   }, [assigmentValue]);
 
   return (
-    <section className={classes.comments}>
-      <h2>Posts Comments</h2>
-      {!isShowCommentForm && (
-        <button className="btn" onClick={onShowCommentForm}>
-          Add a Comment
-        </button>
-      )}
-      {!isShowCommentForm && todo.compoment}
-      {isShowCommentForm && (
-        <FormComment isNew={true} onSaveForm={onSaveData} />
-      )}
-    </section>
+    <Fragment>
+      <section className={classes.comments}>
+        <h2>Posts Comments</h2>
+        {!todo.isForm && (
+          <button className="btn" onClick={onShowCommentForm}>
+            Add a Comment
+          </button>
+        )}
+        {!todo.isForm && todo.compoment}
+        {todo.isForm && todo.compoment}
+      </section>
+    </Fragment>
   );
 };
 

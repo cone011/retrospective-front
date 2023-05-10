@@ -6,3 +6,22 @@
   border-bottom: 2px solid teal;
   background-color: #cbf8f8;
 }
+
+.buttons {
+  text-align: center;
+}
+
+.buttons button {
+  font-size: 1.1rem;
+  margin-left: 10px;
+}
+
+.btnItem {
+  text-decoration: none;
+  background-color: teal;
+  color: white;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  border: 1px solid teal;
+  cursor: pointer;
+}

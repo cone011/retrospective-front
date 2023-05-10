@@ -2,7 +2,7 @@ import { Fragment, useCallback, useState, useEffect, useRef } from "react";
 import classes from "./FormComment.module.css";
 
 const FormComment = (props) => {
-  const { commentId, comment, isNew, onSaveForm } = props;
+  const { commentId, comment, isNew, onSaveForm, index } = props;
 
   const commentRef = useRef();
 
@@ -23,7 +23,8 @@ const FormComment = (props) => {
     onSaveForm({
       isNew: isNew,
       comment: commentRef.current.value,
-      commentId: commentId ? commentId : null,
+      _id: commentId ? commentId : null,
+      index: index,
     });
   };
 

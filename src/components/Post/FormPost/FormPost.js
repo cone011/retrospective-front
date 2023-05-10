@@ -28,6 +28,7 @@ const FormPost = () => {
   const [typeSelected, setTypeSelected] = useState([]);
   const [listType, setListType] = useState([]);
   const [listTypePost, setListTypePost] = useState([]);
+  const [comments, setComments] = useState([]);
 
   const assigmentValues = useCallback(async () => {
     const resultTypePost = await getAllTypePost();
@@ -129,6 +130,10 @@ const FormPost = () => {
     dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
   };
 
+  const onReturnComentarios = (data) => {
+    setComments(data);
+  };
+
   return (
     <Fragment>
       <Layout>
@@ -162,7 +167,11 @@ const FormPost = () => {
                 onChange={onTypesHandler}
               />
             </div>
-            <ListComment haveComments={false} />
+            <ListComment
+              haveComments={comments.length > 0 ? true : false}
+              comments={comments}
+              onReturnData={onReturnComentarios}
+            />
             <div className={classes.action}>
               <button className="btn" type="submit">
                 Save
