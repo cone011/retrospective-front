@@ -6,6 +6,7 @@ import FormComment from "../FormComment/FormComment";
 import { todoReducer } from "../../Reducer/Reducer";
 import { defaultTodoReducer, TYPE_REDUCER_ACTION } from "../../../utils/const";
 import ListCommentItem from "../ListCommentItem/ListCommentItem";
+import { deleteComment } from "../../../api/comments";
 
 const ListComment = (props) => {
   const { haveComments, comments, onReturnData } = props;
@@ -13,7 +14,6 @@ const ListComment = (props) => {
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
 
   const onReturnCommentsData = (commentsData) => {
-    console.log(commentsData);
     onReturnData(commentsData);
   };
 
@@ -33,10 +33,11 @@ const ListComment = (props) => {
     });
   };
 
-  const onDeleteComment = (commentItem) => {
+  const onDeleteComment = async (commentItem) => {
     const { _id, index } = commentItem;
     const auxList = listComments;
     if (_id !== null) {
+      const result = await deleteComment(_id);
     } else {
       auxList.splice(index, 1);
     }

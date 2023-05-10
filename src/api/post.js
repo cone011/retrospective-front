@@ -57,7 +57,7 @@ export async function savePost(postData) {
     console.log(data);
     throw new Error("Could not save this post");
   }
-  return { isSaved: data.isSaved };
+  return { isSaved: data.isSaved, postId: data.postId };
 }
 
 export async function deletePost(postId) {

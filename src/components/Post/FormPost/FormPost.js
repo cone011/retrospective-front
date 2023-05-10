@@ -8,6 +8,7 @@ import {
   TYPE_MODAL,
   TYPE_REDUCER_ACTION,
   NAME_INPUT,
+  ACTION_TYPE,
 } from "../../../utils/const";
 import ShowModal from "../../UI/ShowModal/ShowModal";
 import Layout from "../../UI/Layout/Layout";
@@ -17,6 +18,8 @@ import SelectCheck from "react-select";
 import { getAllTypesForSelect } from "../../../api/type";
 import { getAllTypePost } from "../../../api/typePost";
 import ListComment from "../../Comments/ListComment/ListComment";
+import { getCommentsByPost, saveComments } from "../../../api/comments";
+import { socket } from "../../../socket";
 
 const FormPost = () => {
   const location = useLocation();
@@ -30,6 +33,29 @@ const FormPost = () => {
   const [listTypePost, setListTypePost] = useState([]);
   const [comments, setComments] = useState([]);
 
+  const addComments = (comment) => {
+    console.log(comment);
+    setComments((prevState) => {
+      const updatePost = comment;
+      return updatePost;
+    });
+  };
+
+  const assigmentSocket = useCallback(() => {
+    socket.on("comments", (data) => {
+      if (data.action === ACTION_TYPE.SAVE_COMMENT) {
+        addComments(data.comment);
+      } else if (data.action === ACTION_TYPE.DELETE) {
+        assigmentComments();
+      }
+    });
+  }, []);
+
+  const assigmentComments = useCallback(async () => {
+    const resultComments = await getCommentsByPost(postId);
+    setComments(resultComments.comments);
+  }, []);
+
   const assigmentValues = useCallback(async () => {
     const resultTypePost = await getAllTypePost();
     setListTypePost(resultTypePost);
@@ -39,6 +65,7 @@ const FormPost = () => {
       const result = await getPostById(postId);
       const { title, type, typePost } = result;
       const defaultTypes = [];
+      assigmentComments();
       const defaultTypePost = resultTypePost.find(
         (item) => item.value === typePost
       );
@@ -53,6 +80,7 @@ const FormPost = () => {
 
   useEffect(() => {
     assigmentValues();
+    assigmentSocket();
   }, [assigmentValues]);
 
   const onTitleHandler = (event) => {
@@ -105,13 +133,18 @@ const FormPost = () => {
         isNew: isNew,
       });
 
-      if (result) {
+      const resultComments = await saveComments({
+        postId: result.postId,
+        comments: comments,
+      });
+
+      if (result.isSaved && resultComments) {
         dispatchTodo({
           type: TYPE_REDUCER_ACTION.SET_CONFIRM,
           message: "The post was saved correctly",
           typeModal: TYPE_MODAL.CONFIRM,
         });
-        //navigate("/");
+        navigate("/");
       }
     } catch (err) {
       dispatchTodo({

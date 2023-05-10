@@ -52,7 +52,7 @@ const Login = () => {
         authCtx.login(result, expiration);
         const tokenDuration = getTokenDuration();
         if (tokenDuration > 0) {
-          navigate("/home");
+          navigate("/");
         }
       }
     } catch (err) {

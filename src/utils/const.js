@@ -4,6 +4,7 @@ export const ACTION_TYPE = Object.freeze({
   CREATE: "create",
   UPDATE: "update",
   DELETE: "delete",
+  SAVE_COMMENT: "save",
 });
 
 export const LIST_PROPERTIES = Object.freeze({
