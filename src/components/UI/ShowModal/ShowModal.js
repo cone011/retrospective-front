@@ -27,7 +27,7 @@ const ShowModal = (props) => {
     return (
       <Fragment>
         <CustomModal>
-          <div className={classes.messaage}>{message}</div>
+          <div className={classes.messageTitle}>{message}</div>
           <LoadingSpinner />
         </CustomModal>
       </Fragment>

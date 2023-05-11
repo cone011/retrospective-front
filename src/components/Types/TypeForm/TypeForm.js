@@ -17,7 +17,6 @@ import Layout from "../../UI/Layout/Layout";
 const TypeForm = () => {
   const location = useLocation();
   const { _id, isNew } = location.state;
-  const [isEntering, setIsEntering] = useState(false);
   const [name, setName] = useState("");
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const navigate = useNavigate();
@@ -68,19 +67,11 @@ const TypeForm = () => {
     dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
   };
 
-  const onFormFocusedHandler = () => {
-    setIsEntering(true);
-  };
-
   return (
     <Fragment>
       <Layout>
         <Card>
-          <form
-            className={classes.form}
-            onFocus={onFormFocusedHandler}
-            onSubmit={onSubmitData}
-          >
+          <form className={classes.form} onSubmit={onSubmitData}>
             <div className={classes.control}>
               <label htmlFor="name">Name</label>
               <input

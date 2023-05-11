@@ -135,6 +135,11 @@ const ListPost = () => {
 
   const assigmentValues = useCallback(async () => {
     try {
+      dispatchTodo({
+        type: TYPE_REDUCER_ACTION.SET_LOADING,
+        message: "Please wait for the data",
+        typeModal: TYPE_MODAL.LOADING,
+      });
       const result = await getAllPost({ currentPage: 1, perPage: 10 });
       if (!result.Posts) {
         dispatchTodo({
@@ -145,6 +150,7 @@ const ListPost = () => {
       }
       setListPost(result.Posts);
       onPutCorrectTheValues(result.Posts);
+      dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
     } catch (err) {
       dispatchTodo({
         type: TYPE_REDUCER_ACTION.SET_ERROR,
@@ -229,6 +235,9 @@ const ListPost = () => {
           </Flex>
         </Flex>
       </DndContext>
+      {todo.isLoading && (
+        <ShowModal message={todo.message} typeModal={todo.typeModal} />
+      )}
       {todo.isShowing && (
         <ShowModal
           registerId={todo.postId}

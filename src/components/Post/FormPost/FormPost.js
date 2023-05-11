@@ -57,6 +57,11 @@ const FormPost = () => {
   }, []);
 
   const assigmentValues = useCallback(async () => {
+    dispatchTodo({
+      type: TYPE_REDUCER_ACTION.SET_LOADING,
+      message: "Please wait for the data",
+      typeModal: TYPE_MODAL.LOADING,
+    });
     const resultTypePost = await getAllTypePost();
     setListTypePost(resultTypePost);
     const resultType = await getAllTypesForSelect();
@@ -75,6 +80,7 @@ const FormPost = () => {
       setTitle(title);
       setTypeSelected(defaultTypes);
       setTypePostSelected(defaultTypePost);
+      dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
     }
   }, [isNew, postId]);
 
