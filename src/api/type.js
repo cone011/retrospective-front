@@ -15,7 +15,8 @@ export async function getAllTypes(parameters) {
     console.log(data);
     throw new Error("Could not get the data");
   }
-  return data.types;
+
+  return { types: data.types, totalItems: data.totalItems };
 }
 
 export async function getAllTypesForSelect() {

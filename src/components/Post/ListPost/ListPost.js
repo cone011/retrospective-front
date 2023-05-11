@@ -9,6 +9,7 @@ import {
   TYPE_POST,
   defaultTodoReducer,
   SOCKET_TYPE,
+  PAGINATION_PROPERTIES,
 } from "../../../utils/const";
 import { Flex } from "@chakra-ui/react";
 import PostLine from "../PostLine/PostLine";

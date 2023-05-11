@@ -13,9 +13,11 @@ export const ACTION_TYPE = Object.freeze({
   SAVE_COMMENT: "save",
 });
 
-export const LIST_PROPERTIES = Object.freeze({
+export const PAGINATION_PROPERTIES = Object.freeze({
   CURRENT_PAGE: 1,
   PER_PAGE: 10,
+  NEXT: "next",
+  PREVIOUS: "previous",
 });
 
 export const TYPE_POST = Object.freeze({
