@@ -16,7 +16,7 @@ import Layout from "../../UI/Layout/Layout";
 
 const TypeForm = () => {
   const location = useLocation();
-  const { typeId, isNew } = location.state;
+  const { _id, isNew } = location.state;
   const [isEntering, setIsEntering] = useState(false);
   const [name, setName] = useState("");
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
@@ -24,10 +24,10 @@ const TypeForm = () => {
 
   const assigmentValues = useCallback(async () => {
     if (!isNew) {
-      const result = await getTypeById(typeId);
+      const result = await getTypeById(_id);
       setName(result.name);
     }
-  }, [isNew, typeId]);
+  }, [isNew, _id]);
 
   useEffect(() => {
     assigmentValues();
@@ -52,7 +52,7 @@ const TypeForm = () => {
       });
     }
 
-    const result = await saveType({ isNew: isNew, name: name, typeId: typeId });
+    const result = await saveType({ isNew: isNew, name: name, typeId: _id });
 
     if (result) {
       dispatchTodo({

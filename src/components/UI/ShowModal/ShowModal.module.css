@@ -7,31 +7,50 @@
   margin: 1rem 0;
 }
 
+.messageTitle {
+  font-size: 35px;
+}
+
 .actions {
-  text-align: right;
+  text-align: center;
 }
 
-.actions button {
-  font: inherit;
+.btnCentered {
+  text-decoration: none;
+  background-color: teal;
+  color: white;
+  border-radius: 4px;
+  padding: 1.2rem 3rem;
+  border: 1px solid teal;
   cursor: pointer;
-  background-color: transparent;
-  border: 1px solid #8a2b06;
-  padding: 0.5rem 2rem;
-  border-radius: 25px;
-  margin-left: 1rem;
+  margin-right: 20px;
 }
 
-.actions button:hover .actions button:active {
-  background-color: #5a1a01;
-  border-color: #5a1a01;
+.btnCentered:hover,
+.btnCentered:active {
+  background-color: #11acac;
+  border-color: #11acac;
+}
+
+.btnCentered--flat {
+  cursor: pointer;
+  font: inherit;
+  color: teal;
+  border: none;
+  background-color: none;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+}
+
+.btnCentered--flat:hover,
+.btnCentered--flat:active {
+  background-color: teal;
   color: white;
 }
 
-.actions .buton--alt {
-  color: #8a2b06;
-}
-
-.actions .button {
-  background-color: #8a2b06;
-  color: white;
+@media (max-width: 771px) {
+  .btnCentered {
+    margin-right: 5px;
+  }
 }

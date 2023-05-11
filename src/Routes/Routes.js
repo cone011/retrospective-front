@@ -20,7 +20,7 @@ const RoutesPages = () => {
         <Route exact element={<ProtectedRoute />}>
           <Route path="/" exact element={<HomePage />} />
           <Route path="/type" exact element={<TypesPage />} />
-          <Route path="/type-from" exact element={<TypeForm />} />
+          <Route path="/type-form" exact element={<TypeForm />} />
           <Route path="/post-from" exact element={<FormPost />} />
         </Route>
         <Route path="*" element={<NotFound />} />

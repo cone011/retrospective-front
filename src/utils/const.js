@@ -1,5 +1,11 @@
 export const CALL_API = `${process.env.REACT_APP_LINKAPI}`;
 
+export const SOCKET_TYPE = Object.freeze({
+  POST: "post",
+  COMMENTS: "comments",
+  TYPE: "type",
+});
+
 export const ACTION_TYPE = Object.freeze({
   CREATE: "create",
   UPDATE: "update",

@@ -9,6 +9,7 @@ import {
   TYPE_REDUCER_ACTION,
   NAME_INPUT,
   ACTION_TYPE,
+  SOCKET_TYPE,
 } from "../../../utils/const";
 import ShowModal from "../../UI/ShowModal/ShowModal";
 import Layout from "../../UI/Layout/Layout";
@@ -34,7 +35,6 @@ const FormPost = () => {
   const [comments, setComments] = useState([]);
 
   const addComments = (comment) => {
-    console.log(comment);
     setComments((prevState) => {
       const updatePost = comment;
       return updatePost;
@@ -42,7 +42,7 @@ const FormPost = () => {
   };
 
   const assigmentSocket = useCallback(() => {
-    socket.on("comments", (data) => {
+    socket.on(SOCKET_TYPE.COMMENTS, (data) => {
       if (data.action === ACTION_TYPE.SAVE_COMMENT) {
         addComments(data.comment);
       } else if (data.action === ACTION_TYPE.DELETE) {

@@ -1,7 +1,6 @@
 import { DndContext, rectIntersection } from "@dnd-kit/core";
 import { Fragment, useCallback, useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import classes from "./ListPost.module.css";
 import { todoReducer } from "../../Reducer/Reducer";
 import {
   TYPE_MODAL,
@@ -9,6 +8,7 @@ import {
   ACTION_TYPE,
   TYPE_POST,
   defaultTodoReducer,
+  SOCKET_TYPE,
 } from "../../../utils/const";
 import { Flex } from "@chakra-ui/react";
 import PostLine from "../PostLine/PostLine";
@@ -122,7 +122,7 @@ const ListPost = () => {
   };
 
   const assigmentSocket = useCallback(() => {
-    socket.on("posts", (data) => {
+    socket.on(SOCKET_TYPE.POST, (data) => {
       if (data.action === ACTION_TYPE.CREATE) {
         addPost(data.post);
       } else if (data.action === ACTION_TYPE.UPDATE) {

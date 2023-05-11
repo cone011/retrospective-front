@@ -19,7 +19,9 @@ const Home = () => {
               <div className="word3">AgileEx</div>
             </div>
           </h1> */}
-          <button onClick={onClickNewPost}>New Post</button>
+          <button onClick={onClickNewPost} className="btn">
+            New Post
+          </button>
         </div>
         <ListPost />
       </div>

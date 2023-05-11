@@ -33,7 +33,6 @@ export async function getAllTypesForSelect() {
 
 export async function getTypeById(typeId) {
   const token = getAuthToken();
-  console.log(typeId);
   const result = await fetch(`${CALL_API}/type/${typeId}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -47,7 +46,6 @@ export async function getTypeById(typeId) {
 
 export async function saveType(typeObject) {
   const token = getAuthToken();
-  console.log(token);
   const { isNew, name, typeId } = typeObject;
   let sendLinkApi = `${CALL_API}/type`;
   let method = "POST";
@@ -75,7 +73,7 @@ export async function saveType(typeObject) {
   return data.isSaved;
 }
 
-export async function deleteTag(typeId) {
+export async function deleteType(typeId) {
   const token = getAuthToken();
   const result = await fetch(`${CALL_API}/type/${typeId}`, {
     headers: { Authorization: `Bearer ${token}` },

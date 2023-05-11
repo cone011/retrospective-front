@@ -40,11 +40,11 @@ const ShowModal = (props) => {
         <CustomModal onClose={onClose}>
           <div className={classes.messaage}>
             <span>
-              <strong>{message}</strong>
+              <strong className={classes.messageTitle}>{message}</strong>
             </span>
           </div>
           <div className={classes.actions}>
-            <button className={classes["buton--alt"]} onClick={onClose}>
+            <button className="btn" onClick={onClose}>
               Close
             </button>
           </div>
@@ -59,7 +59,7 @@ const ShowModal = (props) => {
         <CustomModal onClose={onClose}>
           <div className={classes.messaage}>
             <span>
-              <strong>{message}</strong>
+              <strong className={classes.messageTitle}>{message}</strong>
             </span>
           </div>
           <div className={classes.actions}>
@@ -77,22 +77,22 @@ const ShowModal = (props) => {
       <Fragment>
         <CustomModal onClose={onClose}>
           <div className={classes.messaage}>
-            <span>
-              <strong>{message}</strong>
+            <span className="centered">
+              <strong className={classes.messageTitle}>{message}</strong>
             </span>
           </div>
           <div className={classes.actions}>
             <button
-              className={classes["buton--alt"]}
+              className={classes.btnCentered}
               onClick={onUpdateRegistration}
             >
-              Editar
+              Modify
             </button>
             <button
-              className={classes["buton--alt"]}
+              className={classes.btnCentered}
               onClick={onDeleteRegistration}
             >
-              Eliminar
+              Delete
             </button>
           </div>
         </CustomModal>

@@ -1,14 +1,14 @@
-import { useNavigate } from "react-router-dom";
 import classes from "./ListTypeItem.module.css";
 
 const ListTypeItem = (props) => {
-  const { _id, name } = props;
-  const navigate = useNavigate();
+  const { _id, name, onDelete, onModify } = props;
 
   const onModifyType = () => {
-    navigate("/type-from", {
-      state: { typeId: _id, isNew: false },
-    });
+    onModify({ _id: _id, name: name });
+  };
+
+  const onDeleteType = () => {
+    onDelete(_id);
   };
 
   return (
@@ -22,7 +22,9 @@ const ListTypeItem = (props) => {
           <button className="btn" onClick={onModifyType}>
             Edit
           </button>
-          <button className="btn">Delete</button>
+          <button className="btn" onClick={onDeleteType}>
+            Delete
+          </button>
         </div>
       </figure>
     </li>
