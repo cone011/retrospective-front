@@ -29,6 +29,8 @@ export async function getAllTypesForSelect() {
     console.log(data);
     throw new Error("Could not get the data");
   }
+
+  console.log(data);
   return data.types;
 }
 

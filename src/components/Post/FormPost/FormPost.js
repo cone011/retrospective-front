@@ -80,8 +80,8 @@ const FormPost = () => {
       setTitle(title);
       setTypeSelected(defaultTypes);
       setTypePostSelected(defaultTypePost);
-      dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
     }
+    dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
   }, [isNew, postId]);
 
   useEffect(() => {

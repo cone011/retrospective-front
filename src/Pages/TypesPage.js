@@ -18,7 +18,7 @@ const TypesPage = () => {
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const [ListType, setListType] = useState([]);
   const [page, setPage] = useState(PAGINATION_PROPERTIES.CURRENT_PAGE);
-  const [perPage, setPerPage] = useState(2);
+  const [perPage, setPerPage] = useState(PAGINATION_PROPERTIES.PER_PAGE);
   const [totalItems, setTotalItems] = useState(0);
 
   const onLoadTypes = async (direction) => {
