@@ -1,5 +1,20 @@
 export const CALL_API = `${process.env.REACT_APP_LINKAPI}`;
 
+export const TYPE_FILTER = [
+  {
+    value: "date",
+    label: "DATE",
+  },
+  {
+    value: "typePost",
+    label: "TYPE POST",
+  },
+  {
+    value: "type",
+    label: "TYPE",
+  },
+];
+
 export const SOCKET_TYPE = Object.freeze({
   POST: "post",
   COMMENTS: "comments",

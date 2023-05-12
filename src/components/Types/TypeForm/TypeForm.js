@@ -81,8 +81,10 @@ const TypeForm = () => {
                 onChange={onValueReturnData}
               />
             </div>
-            <div className={classes.actions}>
-              <button type="submit">Save</button>
+            <div className={classes.action}>
+              <button className="btn" type="submit">
+                Save
+              </button>
             </div>
           </form>
         </Card>

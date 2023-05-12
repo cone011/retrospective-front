@@ -57,31 +57,39 @@ const FormPost = () => {
   }, []);
 
   const assigmentValues = useCallback(async () => {
-    dispatchTodo({
-      type: TYPE_REDUCER_ACTION.SET_LOADING,
-      message: "Please wait for the data",
-      typeModal: TYPE_MODAL.LOADING,
-    });
-    const resultTypePost = await getAllTypePost();
-    setListTypePost(resultTypePost);
-    const resultType = await getAllTypesForSelect();
-    setListType(resultType);
-    if (!isNew) {
-      const result = await getPostById(postId);
-      const { title, type, typePost } = result;
-      const defaultTypes = [];
-      assigmentComments();
-      const defaultTypePost = resultTypePost.find(
-        (item) => item.value === typePost
-      );
-      for (let i = 0; i < type.length; i++) {
-        defaultTypes.push(resultType.find((item) => item.value === type[i]));
+    try {
+      dispatchTodo({
+        type: TYPE_REDUCER_ACTION.SET_LOADING,
+        message: "Please wait for the data",
+        typeModal: TYPE_MODAL.LOADING,
+      });
+      const resultTypePost = await getAllTypePost();
+      setListTypePost(resultTypePost);
+      const resultType = await getAllTypesForSelect();
+      setListType(resultType);
+      if (!isNew) {
+        const result = await getPostById(postId);
+        const { title, type, typePost } = result;
+        const defaultTypes = [];
+        assigmentComments();
+        const defaultTypePost = resultTypePost.find(
+          (item) => item.value === typePost
+        );
+        for (let i = 0; i < type.length; i++) {
+          defaultTypes.push(resultType.find((item) => item.value === type[i]));
+        }
+        setTitle(title);
+        setTypeSelected(defaultTypes);
+        setTypePostSelected(defaultTypePost);
       }
-      setTitle(title);
-      setTypeSelected(defaultTypes);
-      setTypePostSelected(defaultTypePost);
+      dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
+    } catch (err) {
+      dispatchTodo({
+        type: TYPE_REDUCER_ACTION.SET_ERROR,
+        message: err,
+        typeModal: TYPE_MODAL.ERROR,
+      });
     }
-    dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
   }, [isNew, postId]);
 
   useEffect(() => {

@@ -9,7 +9,6 @@ import {
   TYPE_POST,
   defaultTodoReducer,
   SOCKET_TYPE,
-  PAGINATION_PROPERTIES,
 } from "../../../utils/const";
 import { Flex } from "@chakra-ui/react";
 import PostLine from "../PostLine/PostLine";
@@ -192,25 +191,6 @@ const ListPost = () => {
       typeModal: TYPE_MODAL.ACTION,
       message: "What action do you wanna do?",
     });
-    // const container = data.over?.id;
-    // const title = data.active.current?.title || "";
-    // const index = data.active.current?.index || 0;
-    // const parent = data.active.current?.parent || "Kudos";
-    // if (container === "Went Well") setWentWellList([...wentWellList, title]);
-    // if (container === "To Improve") setToImproveList([...toImproveList, title]);
-    // if (container === "Kudos") setKudosList([...kudos, title]);
-    // if (parent === "Went Well")
-    //   setWentWellList([
-    //     ...wentWellList.slice(0, index),
-    //     ...wentWellList.slice(index + 1),
-    //   ]);
-    // if (parent === "To Improve")
-    //   setWentWellList([
-    //     ...toImproveList.slice(0, index),
-    //     ...toImproveList.slice(index + 1),
-    //   ]);
-    // if (parent === "Kudos")
-    //   setWentWellList([...kudos.slice(0, index), ...kudos.slice(index + 1)]);
   };
 
   const onCloseModalHandler = () => {
