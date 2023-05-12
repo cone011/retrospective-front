@@ -18,6 +18,20 @@ export async function getAllUsers(dipslayObject) {
   return { users: data.users, totalUsers: data.totalUsers };
 }
 
+export async function getAllUserLabel() {
+  const token = getAuthToken();
+  const result = await fetch(`${CALL_API}/users-format`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await result.json();
+
+  if (!result.ok) {
+    throw new Error("Could not obtain the users info");
+  }
+  console.log(data);
+  return { users: data.users };
+}
+
 export async function getUserById(userId) {
   const token = getAuthToken();
   const result = await fetch(`${CALL_API}/users/${userId}`, {

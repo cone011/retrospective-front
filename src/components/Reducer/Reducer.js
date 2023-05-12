@@ -24,7 +24,6 @@ export const todoReducer = (curTodo, action) => {
         isError: true,
         isLoading: false,
         isConfirm: false,
-        isError: false,
         isShowing: false,
         haveComments: false,
         isForm: false,
