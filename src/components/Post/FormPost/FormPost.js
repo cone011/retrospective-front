@@ -24,7 +24,6 @@ import { socket } from "../../../socket";
 
 const FormPost = () => {
   const location = useLocation();
-  console.log(location.state);
   const { postId, isNew, isView } = location.state;
   const navigate = useNavigate();
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);

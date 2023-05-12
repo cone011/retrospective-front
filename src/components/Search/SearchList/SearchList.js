@@ -18,7 +18,6 @@ const SearchList = (props) => {
   }, [assigmentValue]);
 
   const onViewPost = (postId) => {
-    console.log(postId);
     navigate("/post-from", {
       state: { postId: postId, isNew: false, isView: true },
     });

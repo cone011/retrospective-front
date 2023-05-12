@@ -109,7 +109,11 @@ const SignUp = () => {
         navigate("/");
       }
     } catch (err) {
-      console.log(err);
+      dispatchTodo({
+        type: TYPE_REDUCER_ACTION.SET_ERROR,
+        message: err,
+        typeModal: TYPE_MODAL.ERROR,
+      });
     }
   };
 

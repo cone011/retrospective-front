@@ -28,7 +28,6 @@ export async function getAllUserLabel() {
   if (!result.ok) {
     throw new Error("Could not obtain the users info");
   }
-  console.log(data);
   return { users: data.users };
 }
 
@@ -73,11 +72,9 @@ export async function login(userData) {
 export async function signUp(userData) {
   const { email, password, confirmPassword, firstName, lastName, phone } =
     userData;
-  const token = getAuthToken();
   const response = await fetch(`${CALL_API}/signup`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
