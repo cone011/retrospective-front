@@ -9,7 +9,7 @@ import Navbar from "../components/UI/Navbar/Navbar";
 import TypeForm from "../components/Types/TypeForm/TypeForm";
 import FormPost from "../components/Post/FormPost/FormPost";
 import NotFound from "../Pages/NotFound";
-import SearchForm from "../components/Search/SearchForm/SearchForm";
+import SearchPage from "../Pages/SearchPage";
 
 const RoutesPages = () => {
   return (
@@ -23,7 +23,7 @@ const RoutesPages = () => {
           <Route path="/type" exact element={<TypesPage />} />
           <Route path="/type-form" exact element={<TypeForm />} />
           <Route path="/post-from" exact element={<FormPost />} />
-          <Route path="/search" exact element={<SearchForm />} />
+          <Route path="/search" exact element={<SearchPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

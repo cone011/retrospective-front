@@ -2,7 +2,6 @@ import classes from "./Paginator.module.css";
 
 const Paginator = (props) => {
   const { onPrevious, onNext, currentPage, lastPage, children } = props;
-
   return (
     <div>
       {children}

@@ -1,17 +1,23 @@
 export const CALL_API = `${process.env.REACT_APP_LINKAPI}`;
 
+export const TYPE_FILTER_NAME = Object.freeze({
+  DATE: "DATE",
+  TYPE_POST: "TYPE POST",
+  TYPE: "TYPE",
+});
+
 export const TYPE_FILTER = [
   {
-    value: "date",
-    label: "DATE",
+    value: TYPE_FILTER_NAME.DATE,
+    label: TYPE_FILTER_NAME.DATE,
   },
   {
-    value: "typePost",
-    label: "TYPE POST",
+    value: TYPE_FILTER_NAME.TYPE_POST,
+    label: TYPE_FILTER_NAME.TYPE_POST,
   },
   {
-    value: "type",
-    label: "TYPE",
+    value: TYPE_FILTER_NAME.TYPE,
+    label: TYPE_FILTER_NAME.TYPE,
   },
 ];
 

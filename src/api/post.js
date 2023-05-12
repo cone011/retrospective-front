@@ -31,6 +31,31 @@ export async function getPostById(postId) {
   return data.item;
 }
 
+export async function getSearchPostByParameters(dataFilter) {
+  const { typePost, type } = dataFilter;
+  let urlSend = `${CALL_API}/search-post?`;
+
+  if (type.length > 0 && typePost !== undefined) {
+    urlSend = `${urlSend}typePost=${typePost.value}&type=${type}`;
+  } else if (type.length > 0) {
+    urlSend = `${urlSend}type=${typePost}`;
+  } else if (type !== undefined) {
+    urlSend = `${urlSend}typePost=${typePost.value}`;
+  }
+  const token = getAuthToken();
+  const response = await fetch(urlSend, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error("Could not fetch the search");
+  }
+  return {
+    posts: data.posts,
+    totalItems: data.totalItems,
+  };
+}
+
 export async function savePost(postData) {
   const { title, typePost, type, postId, isNew } = postData;
   const token = getAuthToken();

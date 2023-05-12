@@ -7,22 +7,20 @@ import {
   defaultTodoReducer,
   TYPE_REDUCER_ACTION,
   TYPE_MODAL,
-  TYPE_FILTER,
 } from "../../../utils/const";
 import Layout from "../../UI/Layout/Layout";
 import Card from "../../UI/Card/Card";
 import SelectCheck from "react-select";
 
-const SearchForm = () => {
+const SearchForm = (props) => {
+  const { onReturnData } = props;
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const [dateBegin, setDateBegin] = useState("");
   const [dateEnd, setDateEnd] = useState("");
   const [typePostSelected, setTypePostSelected] = useState([]);
   const [typeSelected, setTypeSelected] = useState([]);
-  const [typeFilterUse, setTypeFilterUse] = useState({});
   const [listType, setListType] = useState([]);
   const [listTypePost, setListTypePost] = useState([]);
-  const [listTypeFilter, setListTypeFilter] = useState(TYPE_FILTER);
 
   const assigmentValues = useCallback(async () => {
     try {
@@ -49,10 +47,6 @@ const SearchForm = () => {
     assigmentValues();
   }, [assigmentValues]);
 
-  const onFilterHandler = (data) => {
-    setTypeFilterUse(data);
-  };
-
   const onTypePostHandler = (data) => {
     setTypePostSelected(data);
   };
@@ -65,20 +59,18 @@ const SearchForm = () => {
     );
   };
 
+  const onReturnSearchData = () => {
+    const listTypeSelected = typeSelected.map((item) => {
+      return item.value;
+    });
+    onReturnData({ typePost: typePostSelected, type: listTypeSelected });
+  };
+
   return (
     <Fragment>
       <Layout>
         <Card>
           <form className={classes.form}>
-            <div className={classes.control}>
-              <label htmlFor="filterType">Filter Type</label>
-              <SelectCheck
-                className={classes.checkBox}
-                options={listTypeFilter}
-                value={typeFilterUse}
-                onChange={onFilterHandler}
-              />
-            </div>
             <div className={classes.control}>
               <label htmlFor="typePost">Type Post</label>
               <SelectCheck
@@ -99,7 +91,11 @@ const SearchForm = () => {
               />
             </div>
             <div className={classes.action}>
-              <button className="btn" type="submit">
+              <button
+                className="btn"
+                type="button"
+                onClick={onReturnSearchData}
+              >
                 Search
               </button>
             </div>
