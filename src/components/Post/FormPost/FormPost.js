@@ -125,6 +125,7 @@ const FormPost = () => {
           message: "Please enter the title for this post",
           typeModal: TYPE_MODAL.ERROR,
         });
+        return;
       }
 
       if (!typePostSelected || typePostSelected.length === 0) {
@@ -133,6 +134,16 @@ const FormPost = () => {
           message: "At least select a type for this post",
           typeModal: TYPE_MODAL.ERROR,
         });
+        return;
+      }
+
+      if (comments.length === 0) {
+        dispatchTodo({
+          type: TYPE_REDUCER_ACTION.SET_ERROR,
+          message: "At least insert a comment",
+          typeModal: TYPE_MODAL.ERROR,
+        });
+        return;
       }
 
       const listTypeId = typeSelected.map((item) => {

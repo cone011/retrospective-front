@@ -49,6 +49,7 @@ const TypeForm = () => {
         message: "Please enter a name for this type",
         typeModal: TYPE_MODAL.ERROR,
       });
+      return;
     }
 
     const result = await saveType({ isNew: isNew, name: name, typeId: _id });

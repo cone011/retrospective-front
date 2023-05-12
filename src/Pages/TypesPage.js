@@ -32,6 +32,7 @@ const TypesPage = () => {
       currentePage++;
       setPage(currentePage);
     } else if (direction === PAGINATION_PROPERTIES.PREVIOUS) {
+      currentePage--;
       setPage(currentePage);
     }
 
@@ -104,7 +105,7 @@ const TypesPage = () => {
         onPrevious={onPreviousPage}
         onNext={onNextPage}
         currentPage={page}
-        lastPage={Math.ceil(totalItems / 2)}
+        lastPage={Math.ceil(totalItems / perPage)}
       >
         <ListTypes types={ListType} />
       </Paginator>

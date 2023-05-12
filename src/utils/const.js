@@ -22,7 +22,7 @@ export const TYPE_FILTER = [
 ];
 
 export const SOCKET_TYPE = Object.freeze({
-  POST: "post",
+  POST: "posts",
   COMMENTS: "comments",
   TYPE: "type",
 });
