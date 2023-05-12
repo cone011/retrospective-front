@@ -1,7 +1,7 @@
 import classes from "./SearchListItem.module.css";
 
 const SearchListItem = (props) => {
-  const { _id, typePost, title, onView } = props;
+  const { _id, createdAt, updatedAt, title, onView } = props;
 
   const onViewData = () => {
     onView(_id);
@@ -13,6 +13,8 @@ const SearchListItem = (props) => {
         <blockquote>
           <p>{title}</p>
         </blockquote>
+        <figcaption>Created At: {createdAt}</figcaption>
+        <figcaption>Last Update: {updatedAt}</figcaption>
         <div className={classes.buttons}>
           <button className="btn" onClick={onViewData}>
             View Detail

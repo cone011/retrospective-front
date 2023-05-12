@@ -32,7 +32,8 @@ const SearchList = (props) => {
             <SearchListItem
               key={item._id}
               _id={item._id}
-              typePost={item.typePost}
+              createdAt={item.createdAt}
+              updatedAt={item.updatedAt}
               title={item.title}
               onView={onViewPost}
             />
