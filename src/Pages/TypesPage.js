@@ -17,8 +17,8 @@ import Paginator from "../components/UI/Paginator/Paginator";
 const TypesPage = () => {
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const [ListType, setListType] = useState([]);
-  const [page, setPage] = useState(PAGINATION_PROPERTIES.CURRENT_PAGE);
-  const [perPage, setPerPage] = useState(PAGINATION_PROPERTIES.PER_PAGE);
+  const [page, setPage] = useState(0);
+  const [perPage, setPerPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
 
   const onLoadTypes = async (direction) => {
@@ -60,6 +60,8 @@ const TypesPage = () => {
         message: "Please fetching the data",
         typeModal: TYPE_MODAL.LOADING,
       });
+      setPage(PAGINATION_PROPERTIES.CURRENT_PAGE);
+      setPerPage(PAGINATION_PROPERTIES.PER_PAGE);
       onLoadTypes();
     } catch (err) {
       dispatchTodo({
@@ -80,12 +82,12 @@ const TypesPage = () => {
         assigmentValue();
       }
     });
-  }, []);
+  }, [assigmentValue]);
 
   useEffect(() => {
     assigmentValue();
     assigmentSocket();
-  }, [assigmentValue]);
+  }, [assigmentValue, assigmentSocket]);
 
   const onCloseModal = () => {
     dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });

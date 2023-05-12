@@ -1,7 +1,7 @@
 import classes from "./ListCommentItem.module.css";
 
 const ListCommentItem = (props) => {
-  const { index, _id, comment, onModify, onDelete } = props;
+  const { index, _id, comment, onModify, onDelete, isView } = props;
 
   const onModifyComment = () => {
     onModify({
@@ -24,22 +24,24 @@ const ListCommentItem = (props) => {
   return (
     <figure key={index} className={classes.item}>
       <p>{comment}</p>
-      <div className={classes.buttons}>
-        <button
-          className={classes.btnItem}
-          type="button"
-          onClick={onModifyComment}
-        >
-          Edit
-        </button>
-        <button
-          className={classes.btnItem}
-          type="button"
-          onClick={onDeleteComment}
-        >
-          Delete
-        </button>
-      </div>
+      {!isView && (
+        <div className={classes.buttons}>
+          <button
+            className={classes.btnItem}
+            type="button"
+            onClick={onModifyComment}
+          >
+            Edit
+          </button>
+          <button
+            className={classes.btnItem}
+            type="button"
+            onClick={onDeleteComment}
+          >
+            Delete
+          </button>
+        </div>
+      )}
     </figure>
   );
 };

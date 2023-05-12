@@ -11,12 +11,11 @@ import {
 import Layout from "../../UI/Layout/Layout";
 import Card from "../../UI/Card/Card";
 import SelectCheck from "react-select";
+import ShowModal from "../../UI/ShowModal/ShowModal";
 
 const SearchForm = (props) => {
   const { onReturnData } = props;
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
-  const [dateBegin, setDateBegin] = useState("");
-  const [dateEnd, setDateEnd] = useState("");
   const [typePostSelected, setTypePostSelected] = useState([]);
   const [typeSelected, setTypeSelected] = useState([]);
   const [listType, setListType] = useState([]);
@@ -60,10 +59,23 @@ const SearchForm = (props) => {
   };
 
   const onReturnSearchData = () => {
+    if (typeSelected.length === 0 && typePostSelected.length === 0) {
+      dispatchTodo({
+        type: TYPE_REDUCER_ACTION.SET_ERROR,
+        message: "At least select a filter to search",
+        typeModal: TYPE_MODAL.ERROR,
+      });
+      return;
+    }
+
     const listTypeSelected = typeSelected.map((item) => {
       return item.value;
     });
     onReturnData({ typePost: typePostSelected, type: listTypeSelected });
+  };
+
+  const onCloseModal = () => {
+    dispatchTodo({ type: TYPE_REDUCER_ACTION.SET_END });
   };
 
   return (
@@ -102,6 +114,13 @@ const SearchForm = (props) => {
           </form>
         </Card>
       </Layout>
+      {todo.isError && (
+        <ShowModal
+          message={todo.message}
+          typeModal={todo.typeModal}
+          onClose={onCloseModal}
+        />
+      )}
     </Fragment>
   );
 };

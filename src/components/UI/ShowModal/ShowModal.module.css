@@ -9,6 +9,8 @@
 
 .messageTitle {
   font-size: 35px;
+  display: flex;
+  justify-content: center;
 }
 
 .actions {

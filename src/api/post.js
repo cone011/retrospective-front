@@ -25,8 +25,7 @@ export async function getPostById(postId) {
   });
   const data = await response.json();
   if (!response.ok) {
-    console.log(data);
-    throw new Error("Could not fetch this data");
+    throw new Error("Could not fetch the data");
   }
   return data.item;
 }
@@ -83,8 +82,7 @@ export async function savePost(postData) {
   });
   const data = await response.json();
   if (!response.ok) {
-    console.log(data);
-    throw new Error("Could not save this post");
+    throw new Error("Could not save the post");
   }
   return { isSaved: data.isSaved, postId: data.postId };
 }
@@ -97,7 +95,6 @@ export async function deletePost(postId) {
   });
   const data = await response.json();
   if (!response.ok) {
-    console.log(data);
     throw new Error("Could not delete this data");
   }
   return data.isDeleted;

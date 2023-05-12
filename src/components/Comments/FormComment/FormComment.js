@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useState, useEffect, useRef } from "react";
+import { Fragment, useCallback, useEffect, useRef } from "react";
 import classes from "./FormComment.module.css";
 
 const FormComment = (props) => {
@@ -18,6 +18,7 @@ const FormComment = (props) => {
 
   const onHandlerForm = () => {
     if (!commentRef.current.value || commentRef.current.value.length === 0) {
+      return;
     }
 
     onSaveForm({

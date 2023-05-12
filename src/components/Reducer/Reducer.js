@@ -23,6 +23,11 @@ export const todoReducer = (curTodo, action) => {
         ...curTodo,
         isError: true,
         isLoading: false,
+        isConfirm: false,
+        isError: false,
+        isShowing: false,
+        haveComments: false,
+        isForm: false,
         message: action.message,
         typeModal: action.typeModal,
       };

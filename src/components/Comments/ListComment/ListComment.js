@@ -9,7 +9,7 @@ import ListCommentItem from "../ListCommentItem/ListCommentItem";
 import { deleteComment } from "../../../api/comments";
 
 const ListComment = (props) => {
-  const { haveComments, comments, onReturnData } = props;
+  const { haveComments, comments, onReturnData, isView } = props;
   const [listComments, setListComments] = useState([]);
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
 
@@ -51,6 +51,7 @@ const ListComment = (props) => {
           index={index}
           _id={item._id}
           comment={item.comment}
+          isView={isView}
           onModify={onModifyComment}
           onDelete={onDeleteComment}
         />
@@ -70,6 +71,7 @@ const ListComment = (props) => {
             key={index}
             _id={item._id}
             comment={item.comment}
+            isView={isView}
             onModify={onModifyComment}
             onDelete={onDeleteComment}
           />
@@ -112,6 +114,7 @@ const ListComment = (props) => {
           key={index}
           index={index}
           _id={item._id}
+          isView={isView}
           comment={item.comment}
           onModify={onModifyComment}
           onDelete={onDeleteComment}
@@ -129,7 +132,7 @@ const ListComment = (props) => {
     <Fragment>
       <section className={classes.comments}>
         <h2>Posts Comments</h2>
-        {!todo.isForm && (
+        {!todo.isForm && !isView && (
           <button className="btn" onClick={onShowCommentForm}>
             Add a Comment
           </button>

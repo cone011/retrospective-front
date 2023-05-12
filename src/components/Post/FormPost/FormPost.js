@@ -24,7 +24,8 @@ import { socket } from "../../../socket";
 
 const FormPost = () => {
   const location = useLocation();
-  const { postId, isNew } = location.state;
+  console.log(location.state);
+  const { postId, isNew, isView } = location.state;
   const navigate = useNavigate();
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
   const [title, setTitle] = useState("");
@@ -41,6 +42,11 @@ const FormPost = () => {
     });
   };
 
+  const assigmentComments = useCallback(async () => {
+    const resultComments = await getCommentsByPost(postId);
+    setComments(resultComments.comments);
+  }, [postId]);
+
   const assigmentSocket = useCallback(() => {
     socket.on(SOCKET_TYPE.COMMENTS, (data) => {
       if (data.action === ACTION_TYPE.SAVE_COMMENT) {
@@ -49,12 +55,7 @@ const FormPost = () => {
         assigmentComments();
       }
     });
-  }, []);
-
-  const assigmentComments = useCallback(async () => {
-    const resultComments = await getCommentsByPost(postId);
-    setComments(resultComments.comments);
-  }, []);
+  }, [assigmentComments]);
 
   const assigmentValues = useCallback(async () => {
     try {
@@ -86,16 +87,16 @@ const FormPost = () => {
     } catch (err) {
       dispatchTodo({
         type: TYPE_REDUCER_ACTION.SET_ERROR,
-        message: err,
+        message: err[0].msg,
         typeModal: TYPE_MODAL.ERROR,
       });
     }
-  }, [isNew, postId]);
+  }, [isNew, postId, assigmentComments]);
 
   useEffect(() => {
     assigmentValues();
     assigmentSocket();
-  }, [assigmentValues]);
+  }, [assigmentValues, assigmentSocket]);
 
   const onTitleHandler = (event) => {
     setTitle(event.target.value);
@@ -228,13 +229,16 @@ const FormPost = () => {
             <ListComment
               haveComments={comments.length > 0 ? true : false}
               comments={comments}
+              isView={isView}
               onReturnData={onReturnComentarios}
             />
-            <div className={classes.action}>
-              <button className="btn" type="submit">
-                Save
-              </button>
-            </div>
+            {!isView && (
+              <div className={classes.action}>
+                <button className="btn" type="submit">
+                  Save
+                </button>
+              </div>
+            )}
           </form>
         </Card>
       </Layout>

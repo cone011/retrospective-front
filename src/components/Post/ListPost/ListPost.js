@@ -67,7 +67,9 @@ const ListPost = () => {
   }, []);
 
   const onModifyPost = (data) => {
-    navigate("/post-from", { state: { postId: data, isNew: false } });
+    navigate("/post-from", {
+      state: { postId: data, isNew: false, isView: false },
+    });
   };
 
   const onPutValues = (data) => {

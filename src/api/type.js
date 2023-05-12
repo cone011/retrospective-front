@@ -12,7 +12,6 @@ export async function getAllTypes(parameters) {
   );
   const data = await result.json();
   if (!result.ok) {
-    console.log(data);
     throw new Error("Could not get the data");
   }
 
@@ -26,7 +25,6 @@ export async function getAllTypesForSelect() {
   });
   const data = await result.json();
   if (!result.ok) {
-    console.log(data);
     throw new Error("Could not get the data");
   }
   return data.types;
@@ -39,7 +37,6 @@ export async function getTypeById(typeId) {
   });
   const data = await result.json();
   if (!result.ok) {
-    console.log(data);
     throw new Error("Could not get the data");
   }
   return data.item;
@@ -68,7 +65,6 @@ export async function saveType(typeObject) {
   });
   const data = await result.json();
   if (!result.ok) {
-    console.log(data);
     throw new Error("Could not save the data");
   }
   return data.isSaved;
@@ -82,7 +78,6 @@ export async function deleteType(typeId) {
   });
   const data = await result.json();
   if (!result.ok) {
-    console.log(data);
     throw new Error("Could not delete the data");
   }
   return data.isDeleted;
