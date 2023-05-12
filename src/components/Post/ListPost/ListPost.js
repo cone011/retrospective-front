@@ -15,6 +15,7 @@ import PostLine from "../PostLine/PostLine";
 import { deletePost, getAllPost } from "../../../api/post";
 import { socket } from "../../../socket";
 import ShowModal from "../../UI/ShowModal/ShowModal";
+import Totaltems from "../../UI/Totaltems/Totaltems";
 
 const ListPost = () => {
   const [todo, dispatchTodo] = useReducer(todoReducer, defaultTodoReducer);
@@ -199,6 +200,7 @@ const ListPost = () => {
 
   return (
     <Fragment>
+      <Totaltems totalItems={listPost.length} />
       <DndContext
         collisionDetection={rectIntersection}
         onDragEnd={onChangePlace}

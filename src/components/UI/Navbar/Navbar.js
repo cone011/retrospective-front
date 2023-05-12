@@ -30,6 +30,11 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink to="/search" className={classes.active}>
+                Search
+              </NavLink>
+            </li>
+            <li>
               <button className={classes.active} onClick={onLogout}>
                 Logout
               </button>

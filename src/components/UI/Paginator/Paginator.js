@@ -7,12 +7,12 @@ const Paginator = (props) => {
       {children}
       <div className={classes.paginatorControls}>
         {currentPage > 1 && (
-          <button className={classes.paginatorControl} onClick={onPrevious}>
+          <button className="btn" onClick={onPrevious}>
             Previous
           </button>
         )}
         {currentPage < lastPage && (
-          <button className={classes.paginatorControl} onClick={onNext}>
+          <button className="btn" onClick={onNext}>
             Next
           </button>
         )}

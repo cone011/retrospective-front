@@ -1,0 +1,11 @@
+.containerPost {
+  margin: 5vh 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
+
+.messageTitle {
+  font-size: 35px;
+}

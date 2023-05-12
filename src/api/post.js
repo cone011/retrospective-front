@@ -31,8 +31,9 @@ export async function getPostById(postId) {
   return data.item;
 }
 
-export async function getSearchPostByParameters(dataFilter) {
+export async function getSearchPostByParameters(dataFilter, dataPagination) {
   const { typePost, type } = dataFilter;
+  const { currentPage, perPage } = dataPagination;
   let urlSend = `${CALL_API}/search-post?`;
 
   if (type.length > 0 && typePost !== undefined) {
@@ -43,9 +44,12 @@ export async function getSearchPostByParameters(dataFilter) {
     urlSend = `${urlSend}typePost=${typePost.value}`;
   }
   const token = getAuthToken();
-  const response = await fetch(urlSend, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await fetch(
+    `${urlSend}&currentPage=${currentPage}&perPage=${perPage}`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
   const data = await response.json();
   if (!response.ok) {
     throw new Error("Could not fetch the search");
